@@ -119,15 +119,15 @@
                     <div class="notification-slider">
                         <div class="d-flex h-100"> <img src="{{ asset('cuba/assets/images/giftools.gif') }}"
                                 alt="gif">
-                            <h6 class="mb-0 f-w-400"><span class="font-primary">Don't Miss Out!</span>
-                                <span class="f-light"> Our new update has been released.</span>
+                            <h6 class="mb-0 f-w-400"><span class="font-primary">Batas Waktu Input Program!</span>
+                                <span class="f-light"> 25 Januari 2025.</span>
                             </h6>
                             <i class="icon-arrow-top-right f-light"></i>
                         </div>
                         <div class="d-flex h-100"><img src="{{ asset('cuba/assets/images/giftools.gif') }}"
                                 alt="gif">
                             <h6 class="mb-0 f-w-400">
-                                <span class="f-light">Something you love is now on sale!</span>
+                                <span class="f-light">Program Strategis Tahun 2025!</span>
                             </h6>
                             <a class="ms-1" href="https://1.envato.market/3GVzd" target="_blank">Buy now !</a>
                         </div>

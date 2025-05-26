@@ -73,7 +73,7 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    <span class="badge rounded-pill badge-danger">Pending</span>
+                                                    <span class="badge rounded-pill badge-success">Disetujui Seksi</span>
                                                 </td>
                                                 <td>
                                                     <button type="button"

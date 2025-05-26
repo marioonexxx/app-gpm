@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Sample Page</li>
+                            <li class="breadcrumb-item active">Usulan Program</li>
                         </ol>
                     </div>
                 </div>
@@ -112,8 +112,7 @@
                                                         </li>
                                                         <li class="delete"><a href="#"><i
                                                                     class="fa-solid fa-trash-can"></i></a></li>
-                                                                    <li class="delete"><a href="#"><i
-                                                                    class="fa-info-circle"></i></a></li>
+                                                                    <li class="delete">
                                                     </ul>
                                                 </td>
                                             </tr>

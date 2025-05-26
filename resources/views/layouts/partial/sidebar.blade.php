@@ -34,7 +34,8 @@
 
                                         <li class="sidebar-list">
                                             <i class="fa-solid fa-thumbtack"></i>
-                                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('seksi.dashboard')}}">
+                                            <a class="sidebar-link sidebar-title link-nav"
+                                                href="{{ route('seksi.dashboard') }}">
                                                 <i data-feather="home"></i>
                                                 <span>Dashboard</span></a>
                                         </li>
@@ -46,15 +47,20 @@
 
                                         <li class="sidebar-list">
                                             <i class="fa-solid fa-thumbtack"></i>
-                                            <label class="badge badge-light-primary">13</label>
+                                            <label class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label>
                                             <a class="sidebar-link sidebar-title" href="#">
                                                 <i data-feather="file-text"></i>
                                                 <span>Program </span>
                                             </a>
 
                                             <ul class="sidebar-submenu">
-                                                <li><a href="{{ route('seksi.verifikasi') }}">Verifikasi</a></li>
-                                                <li><a href="">Penetapan</a></li>
+                                                <li>
+                                                    <a href="{{ route('seksi.verifikasi') }}">Verifikasi <span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="{{ route('seksi.verifikasi_disetujui') }}">Penetapan <span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('seksi.verifikasi_ditolak') }}">Ditolak <span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
 
                                             </ul>
                                         </li>

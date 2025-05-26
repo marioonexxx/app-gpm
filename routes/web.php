@@ -38,8 +38,9 @@ Route::middleware('auth','verified','Subseksi')->group(function(){
 Route::middleware('auth','verified','Seksi')->group(function(){
     Route::get('/seksi/dashboard',[SeksiController::class, 'index'])->name('seksi.dashboard');
     Route::get('/seksi/verifikasi',[SeksiController::class, 'verifikasi_index'])->name('seksi.verifikasi');
-    Route::patch('/seksi/verifikasi/{id}/terima',[SeksiController::class], 'verifikasi_terima')->name('seksi.verifikasi_terima');
-    Route::patch('/seksi/verifikasi/{id}/tolak',[SeksiController::class], 'verifikasi_tolak')->name('seksi.verifikasi_tolak');
+    Route::get('/seksi/verifikasi_approve',[SeksiController::class, 'verifikasi_disetujui_index'])->name('seksi.verifikasi_disetujui');
+    Route::get('/seksi/verifikasi_reject',[SeksiController::class, 'verifikasi_ditolak_index'])->name('seksi.verifikasi_ditolak');    
+    Route::put('/seksi/verifikasi/{id}/status',[SeksiController::class, 'verifikasi_update'])->name('seksi.verifikasi_update');
 
 });
 

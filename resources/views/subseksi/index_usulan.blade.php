@@ -85,7 +85,15 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    <span class="badge rounded-pill badge-danger">Pending</span>
+                                                    @if ($item->status_usulan == 'Pending')
+                                                        <span class="badge rounded-pill badge-warning">Pending</span>
+                                                    @elseif ($item->status_usulan == 'Ditolak')
+                                                        <span class="badge rounded-pill badge-danger">Ditolak</span>
+                                                    @elseif ($item->status_usulan == 'Disetujui')
+                                                        <span class="badge rounded-pill badge-success">Disetujui</span>
+                                                    @else
+                                                        <span class="badge rounded-pill badge-secondary">Unknown</span>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <ul class="action">
@@ -112,7 +120,7 @@
                                                         </li>
                                                         <li class="delete"><a href="#"><i
                                                                     class="fa-solid fa-trash-can"></i></a></li>
-                                                                    <li class="delete">
+                                                        <li class="delete">
                                                     </ul>
                                                 </td>
                                             </tr>

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('monev', function (Blueprint $table) {
             $table->id();            
             // foreign key program_id
-            $table->unsignedBigInteger('program_id');            
-            $table->string('kesesuain_waktu');
+            $table->unsignedBigInteger('program_id')->unique();            
+            $table->string('kesesuaian_waktu');
             $table->decimal('realisasi_anggaran', 15, 2);
             $table->string('tingkat_kes_anggaran');
             $table->string('tingkat_par_jemaat');

@@ -51,4 +51,9 @@ class SeksiController extends Controller
         // Redirect balik dengan pesan sukses
         return redirect()->back()->with('success', 'Status usulan berhasil diperbarui.');
     }
+
+    public function monev_index()
+    {
+        
+    }
 }

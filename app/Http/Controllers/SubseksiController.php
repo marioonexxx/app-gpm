@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monev;
 use App\Models\Program;
 use App\Models\Seksi;
 use App\Models\Sub_seksi;
@@ -19,9 +20,24 @@ class SubseksiController extends Controller
         $seksiList = Seksi::get();
         $subSeksiList = Sub_seksi::get();
 
-        $listProgram = Program::where('status_usulan','draft')->get();
+        $listProgram = Program::where('status_usulan', 'Pending')->get();
         return view('subseksi.index_usulan', compact('listProgram', 'seksiList', 'subSeksiList'));
     }
+
+    public function usulan_approve()
+    {
+        $listProgram = Program::where('status_usulan', 'Disetujui')->get();
+        return view('subseksi.usulan_disetujui', compact('listProgram'));
+    }
+
+    public function usulan_rejected()
+    {
+        $listProgram = Program::where('status_usulan', 'Ditolak')->get();
+        return view('subseksi.usulan_ditolak', compact('listProgram'));
+    }
+
+
+
     public function usulan_store(Request $request)
     {
         $validated = $request->validate([
@@ -78,5 +94,59 @@ class SubseksiController extends Controller
         $usulan = Program::findOrFail($id);
         $usulan->delete();
         return redirect()->back()->with('success', 'Data berhasil dihapus.');
+    }
+
+
+    public function monev_index()
+    {
+        $listProgram = Program::where('status_usulan', 'Disetujui')
+                                ->where('status_monev','Waiting')    
+                                ->get();
+
+        return view('subseksi.monev', compact('listProgram'));
+    }
+
+    public function monev_store(Request $request)
+    {
+        $request->validate([
+            'program_id' => 'required|exists:program,id',
+            'kesesuaian_waktu' => 'required|string',
+            'realisasi_anggaran' => 'required|numeric',
+            'tingkat_kes_anggaran' => 'required|string',
+            'tingkat_par_jemaat' => 'required|string',
+            'output_kegiatan' => 'required|string',
+            'kendala' => 'nullable|string',
+            'rencana_tin_lanjut' => 'nullable|string',
+            'upload_laporan' => 'required|mimes:pdf|max:5120',
+        ]);
+
+        $path = $request->file('upload_laporan')->store('laporan_monev', 'public');
+
+        Monev::create([
+            'program_id' => $request->program_id,
+            'kesesuaian_waktu' => $request->kesesuaian_waktu,
+            'realisasi_anggaran' => $request->realisasi_anggaran,
+            'tingkat_kes_anggaran' => $request->tingkat_kes_anggaran,
+            'tingkat_par_jemaat' => $request->tingkat_par_jemaat,
+            'output_kegiatan' => $request->output_kegiatan,
+            'kendala' => $request->kendala,
+            'rencana_tin_lanjut' => $request->rencana_tin_lanjut,
+            'upload_laporan' => $path,
+        ]);
+
+        // Update status program menjadi sedang menunggu verifikasi monev
+        Program::where('id', $request->program_id)->update([
+            'status_monev' => 'Menunggu Verifikasi',
+        ]);
+
+
+        return back()->with('success', 'Laporan MONEV berhasil disimpan.');
+    }
+
+    public function monev_waiting()
+    {
+        $listMonev = Monev::with('Program')->get();
+        return view('subseksi.monev_waiting', compact('listMonev'));
+
     }
 }

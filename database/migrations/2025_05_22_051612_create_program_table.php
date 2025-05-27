@@ -27,7 +27,8 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->string('tahun')->nullable();
             $table->string('tahun_renstra')->nullable();      
-            $table->string('status_usulan')->default('draft');   
+            $table->string('status_usulan')->default('Pending'); 
+            $table->string('status_monev')->default('Pending');
             
 
             $table->timestamps();

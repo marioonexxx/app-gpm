@@ -64,27 +64,25 @@
 
                                             </ul>
                                         </li>
-
-                                        {{-- <li class="sidebar-list">
-                                            <i class="fa-solid fa-thumbtack"></i>
-                                            <a class="sidebar-link sidebar-title link-nav" href="">
-                                                <svg class="stroke-icon">
-                                                    <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-file') }}"></use>
-                                                </svg>
-                                                <svg class="fill-icon">
-                                                    <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-file') }}"></use>
-                                                </svg>
-                                                <span>Monev</span>
-                                            </a>
-                                        </li> --}}
-
                                         <li class="sidebar-list">
                                             <i class="fa-solid fa-thumbtack"></i>
-                                            <a class="sidebar-link sidebar-title link-nav" href="">
-                                                <i data-feather="edit"></i>
-                                                <span>Monev</span>
+                                            <label class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label>
+                                            <a class="sidebar-link sidebar-title" href="#">
+                                                <i data-feather="file-text"></i>
+                                                <span>Monev </span>
                                             </a>
-                                        </li>
+
+                                            <ul class="sidebar-submenu">
+                                                <li>
+                                                    <a href="{{ route('seksi.verifikasi') }}">Verifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
+                                                    </a>
+                                                </li>
+                                                <li><a href="{{ route('seksi.verifikasi_disetujui') }}">Disetujui<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('seksi.verifikasi_ditolak') }}">Revisi<span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
+
+                                            </ul>
+                                        </li>     
 
                                         <li class="sidebar-main-title">
                                             <div>
@@ -131,7 +129,28 @@
 
                                         <li class="sidebar-list">
                                             <i class="fa-solid fa-thumbtack"></i>
-                                            <label class="badge badge-light-primary">13</label>
+                                            <label class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label>
+                                            <a class="sidebar-link sidebar-title" href="#">
+                                                <svg class="stroke-icon">
+                                                    <use
+                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-files') }}">
+                                                    </use>
+                                                </svg>
+                                                <svg class="fill-icon">
+                                                    <use
+                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-edit') }}">
+                                                    </use>
+                                                </svg>
+                                                <span>Program </span>
+                                            </a>
+
+                                            <ul class="sidebar-submenu">
+                                                <li><a href="{{ route('subseksi.usulan') }}">Usulan<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('subseksi.usulan_disetujui') }}">Penetapan<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('subseksi.usulan_ditolak') }}">Ditolak<span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
+
+                                            </ul>
+
                                             <a class="sidebar-link sidebar-title" href="#">
                                                 <svg class="stroke-icon">
                                                     <use
@@ -143,32 +162,22 @@
                                                         href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-home') }}">
                                                     </use>
                                                 </svg>
-                                                <span>Program </span>
+                                                <span>Monev</span>
                                             </a>
 
                                             <ul class="sidebar-submenu">
-                                                <li><a href="{{ route('subseksi.usulan') }}">Usulan</a></li>
-                                                <li><a href="">Penetapan</a></li>
+                                                <li><a href="{{ route('subseksi.monev') }}">Input Monev<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('subseksi.monev_waiting') }}">Menunggu Verifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('subseksi.usulan_ditolak') }}">Terverifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
 
                                             </ul>
                                         </li>
+                                        
+                                        
 
-                                        <li class="sidebar-list">
-                                            <i class="fa-solid fa-thumbtack"></i>
-                                            <a class="sidebar-link sidebar-title link-nav" href="">
-                                                <svg class="stroke-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-file') }}">
-                                                    </use>
-                                                </svg>
-                                                <svg class="fill-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-file') }}">
-                                                    </use>
-                                                </svg>
-                                                <span>Monev</span>
-                                            </a>
-                                        </li>
+                                        
+
+                                        
 
                                         <li class="sidebar-main-title">
                                             <div>

@@ -14,7 +14,7 @@ class Monev extends Model
     // Kolom yang bisa diisi (mass assignable)
     protected $fillable = [
         'program_id',
-        'kesesuain_waktu',
+        'kesesuaian_waktu',
         'realisasi_anggaran',
         'tingkat_kes_anggaran',
         'tingkat_par_jemaat',

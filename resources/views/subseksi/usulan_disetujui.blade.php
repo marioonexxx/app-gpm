@@ -230,13 +230,17 @@
 
     {{-- Sweetalert --}}
     @if (session('success'))
-        <script>
+       <script>
             document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     title: 'Berhasil!',
                     text: '{{ session('success') }}',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'OK',
+                    buttonsStyling: false, // penting agar customClass aktif
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
                 });
             });
         </script>

@@ -49,6 +49,7 @@ Route::middleware('auth','verified','Seksi')->group(function(){
     Route::get('/seksi/verifikasi_reject',[SeksiController::class, 'verifikasi_ditolak_index'])->name('seksi.verifikasi_ditolak');    
     Route::put('/seksi/verifikasi/{id}/status',[SeksiController::class, 'verifikasi_update'])->name('seksi.verifikasi_update');
     Route::get('/seksi/monev',[SeksiController::class, 'monev_index'])->name('seksi.monev');
+    Route::get('/seksi/monev_verifikasi',[SeksiController::class, 'monev_verifikasi'])->name('seksi.monev_verifikasi');
 
 });
 

@@ -74,7 +74,7 @@
 
                                             <ul class="sidebar-submenu">
                                                 <li>
-                                                    <a href="{{ route('seksi.verifikasi') }}">Verifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
+                                                    <a href="{{ route('seksi.monev') }}">Verifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
                                                     </a>
                                                 </li>
                                                 <li><a href="{{ route('seksi.verifikasi_disetujui') }}">Disetujui<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>

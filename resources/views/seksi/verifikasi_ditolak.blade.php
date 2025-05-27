@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Seksi Verifikasi Usulan Program</h3>
+                        <h3>Seksi Melihat Hasil Verifikasi Program Yang Ditolak.</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Sample Page</li>
+                            <li class="breadcrumb-item active">Program Ditolak</li>
                         </ol>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="#"
-                                                        class="badge bg-info text-white d-inline-flex align-items-center"
+                                                        class="badge bg-primary d-inline-flex align-items-center"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#detailModal{{ $item->id }}"
                                                         style="cursor: pointer;">
@@ -192,7 +192,7 @@
                                                         </div>
                                                     </div>
 
-                                                    {{-- Form Update Status --}}
+                                                    {{-- Form Update Status
                                                     <form action="{{ route('seksi.verifikasi_update', $item->id) }}"
                                                         method="POST">
                                                         @csrf
@@ -218,13 +218,11 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-6 text-end">
-                                                                <button type="submit"
-                                                                    class="btn btn-success mt-4 d-inline-flex align-items-center gap-2">
-                                                                    <i class="fa-solid fa-check-circle"></i> VERIFIKASI
-                                                                </button>
+                                                                <button type="submit" class="btn btn-success mt-4">Update
+                                                                    Status</button>
                                                             </div>
                                                         </div>
-                                                    </form>
+                                                    </form> --}}
 
                                                 </div>
                                             </div>
@@ -252,11 +250,7 @@
                     title: 'Berhasil!',
                     text: '{{ session('success') }}',
                     icon: 'success',
-                    confirmButtonText: 'OK',
-                    buttonsStyling: false, // penting agar customClass aktif
-                    customClass: {
-                        confirmButton: 'btn btn-success'
-                    }
+                    confirmButtonText: 'OK'
                 });
             });
         </script>

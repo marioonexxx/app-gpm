@@ -149,4 +149,11 @@ class SubseksiController extends Controller
         return view('subseksi.monev_waiting', compact('listMonev'));
 
     }
+
+    public function monev_verifikasi()
+    {
+        $listMonev = Monev::with('Program')->get();
+        return view('subseksi.monev_waiting', compact('listMonev'));
+    }
+
 }

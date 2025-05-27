@@ -73,15 +73,25 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    <span class="badge rounded-pill badge-success">Disetujui Seksi</span>
+                                                   @if ($item->status_usulan == 'Pending')
+                                                        <span class="badge rounded-pill badge-warning">Pending</span>
+                                                    @elseif ($item->status_usulan == 'Ditolak')
+                                                        <span class="badge rounded-pill badge-danger">Ditolak</span>
+                                                    @elseif ($item->status_usulan == 'Disetujui')
+                                                        <span class="badge rounded-pill badge-success">Disetujui</span>
+                                                    @else
+                                                        <span class="badge rounded-pill badge-secondary">Unknown</span>
+                                                    @endif
                                                 </td>
                                                 <td>
-                                                    <button type="button"
-                                                        class="btn btn-info d-inline-flex align-items-center gap-2"
+                                                    <a href="#"
+                                                        class="badge bg-primary d-inline-flex align-items-center"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#detailModal{{ $item->id }}">
-                                                        <i class="fa-solid fa-circle-info fs-7"></i>Detail
-                                                    </button>
+                                                        data-bs-target="#detailModal{{ $item->id }}"
+                                                        style="cursor: pointer;">
+                                                        <i class="fa-solid fa-circle-info me-1"></i> Detail
+                                                    </a>
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -182,7 +192,7 @@
                                                         </div>
                                                     </div>
 
-                                                    {{-- Form Update Status --}}
+                                                    {{-- Form Update Status
                                                     <form action="{{ route('seksi.verifikasi_update', $item->id) }}"
                                                         method="POST">
                                                         @csrf
@@ -212,7 +222,7 @@
                                                                     Status</button>
                                                             </div>
                                                         </div>
-                                                    </form>
+                                                    </form> --}}
 
                                                 </div>
                                             </div>

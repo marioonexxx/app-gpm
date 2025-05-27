@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Monev;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -11,8 +12,6 @@ class SeksiController extends Controller
     {
         $countProgram = Program::count();
         return view('seksi.dashboard', compact('countProgram'));
-        
-
     }
 
     public function verifikasi_index()
@@ -25,7 +24,7 @@ class SeksiController extends Controller
     {
 
         $listProgram = Program::where('status_usulan', 'Ditolak')->get();
-        return view('seksi.verifikasi_disetujui', compact('listProgram'));
+        return view('seksi.verifikasi_ditolak', compact('listProgram'));
     }
     public function verifikasi_disetujui_index()
     {
@@ -54,6 +53,15 @@ class SeksiController extends Controller
 
     public function monev_index()
     {
-        
+        $listMonev = Monev::with('Program')
+            ->whereHas('Program', function ($query) {
+                $query->where('status_usulan', 'Disetujui')
+                    ->where('status_monev', 'Menunggu Verifikasi');
+            })
+            ->get();
+
+
+        return view('seksi.monev_index', compact('listMonev'));
     }
+    public function monev_verifikasi() {}
 }

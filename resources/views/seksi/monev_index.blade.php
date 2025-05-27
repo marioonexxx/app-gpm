@@ -88,28 +88,25 @@
                                                 </td>
                                                 <td>
                                                     @if ($item->program->status_monev == 'Menunggu Verifikasi')
-                                                        <span class="badge rounded-pill badge-warning">Menunggu<br>Verifikasi</span>
+                                                        <span
+                                                            class="badge rounded-pill badge-warning">Menunggu<br>Verifikasi</span>
                                                     @elseif ($item->program->status_monev == 'Menunggu')
                                                         <span class="badge rounded-pill badge-danger">Ditolak</span>
                                                     @elseif ($item->program->status_monev == 'Disetujui')
                                                         <span class="badge rounded-pill badge-success">Disetujui</span>
                                                     @else
-                                                        <span class="badge rounded-pill badge-secondary">Menunggu Revisi</span>
+                                                        <span class="badge rounded-pill badge-secondary">Menunggu
+                                                            Revisi</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <ul class="action">
-                                                        <li class="edit">
-                                                            <a href="#" class="btn-edit">
+                                                    <a href="#" title="Detail">
+                                                        <span class="badge bg-primary">
+                                                            <i class="fa-solid fa-circle-info me-1"></i> Detail
+                                                        </span>
+                                                    </a>
 
-                                                                <i class="fa-regular fa-pen-to-square"></i>
-                                                            </a>
-                                                            </a>
-                                                        </li>
-                                                        <li class="delete"><a href="#"><i
-                                                                    class="fa-solid fa-trash-can"></i></a></li>
-                                                        <li class="delete">
-                                                    </ul>
+
                                                 </td>
                                             </tr>
                                         @endforeach

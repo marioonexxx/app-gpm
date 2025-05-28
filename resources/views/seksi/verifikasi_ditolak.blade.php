@@ -73,12 +73,17 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    @if ($item->status_usulan == 'Pending')
-                                                        <span class="badge rounded-pill badge-warning">Pending</span>
-                                                    @elseif ($item->status_usulan == 'Ditolak')
+                                                    @if ($item->status_usulan == '1')
+                                                        <span class="badge rounded-pill badge-success">Menunggu
+                                                            Verifikasi</span>
+                                                    @elseif ($item->status_usulan == '2')
+                                                        <span class="badge rounded-pill badge-danger">Tahap Pra
+                                                            Sidang</span>
+                                                    @elseif ($item->status_usulan == '3')
+                                                        <span class="badge rounded-pill badge-success">Ditetapkan
+                                                            Sidang</span>
+                                                    @elseif ($item->status_usulan == '4')
                                                         <span class="badge rounded-pill badge-danger">Ditolak</span>
-                                                    @elseif ($item->status_usulan == 'Disetujui')
-                                                        <span class="badge rounded-pill badge-success">Disetujui</span>
                                                     @else
                                                         <span class="badge rounded-pill badge-secondary">Unknown</span>
                                                     @endif

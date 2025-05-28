@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Subseksi - Program yang telah ditetapkan.</h3>
+                        <h3>Subseksi - Program yang telah disetujui di Pra Sidang Jemaat</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Program Ditetapkan</li>
+                            <li class="breadcrumb-item active">Program Pra Sidang</li>
                         </ol>
                     </div>
                 </div>
@@ -72,12 +72,17 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    @if ($item->status_usulan == 'Pending')
-                                                        <span class="badge rounded-pill badge-warning">Pending</span>
-                                                    @elseif ($item->status_usulan == 'Ditolak')
-                                                        <span class="badge rounded-pill badge-danger">Ditolak</span>
-                                                    @elseif ($item->status_usulan == 'Disetujui')
-                                                        <span class="badge rounded-pill badge-success">Disetujui</span>
+                                                    @if ($item->status_usulan == '1')
+                                                        <span class="badge rounded-pill badge-success">Menunggu
+                                                            Verifikasi</span>
+                                                    @elseif ($item->status_usulan == '2')
+                                                        <span class="badge rounded-pill badge-danger">Tahap Pra
+                                                            Sidang</span>
+                                                    @elseif ($item->status_usulan == '3')
+                                                        <span class="badge rounded-pill badge-success">Ditetapkan
+                                                            Sidang</span>
+                                                    @elseif ($item->status_usulan == '4')
+                                                        <span class="badge rounded-pill badge-success">Ditolak</span>
                                                     @else
                                                         <span class="badge rounded-pill badge-secondary">Unknown</span>
                                                     @endif

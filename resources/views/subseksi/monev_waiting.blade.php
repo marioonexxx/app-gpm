@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Sub Seksi - Menunggu Verifikasi Hasil Monev</h3>
+                        <h3>Sub Seksi Menunggu Hasil Verifikasi Monev</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -28,8 +28,8 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <h5>Program Kerja Sub Seksi</h5>
-                                <p class="f-m-light mt-1 mb-0">Data Program Kerja</p>
+                                <h5>Data Program Kerja Sub Seksi</h5>
+                                <p class="f-m-light mt-1 mb-0">Saat ini input laporan monev anda sedang diperiksa oleh Seksi terkait.</p>
                             </div>
 
                         </div>
@@ -57,7 +57,7 @@
                                             <th>Rencana Tindak Lanjut</th>
                                             <th>Laporan</th>
                                             <th>Status Monev</th>
-                                            <th>Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,30 +87,22 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($item->program->status_monev == 'Menunggu Verifikasi')
-                                                        <span class="badge rounded-pill badge-warning">Menunggu<br>Verifikasi</span>
-                                                    @elseif ($item->program->status_monev == 'Menunggu')
-                                                        <span class="badge rounded-pill badge-danger">Ditolak</span>
-                                                    @elseif ($item->program->status_monev == 'Disetujui')
-                                                        <span class="badge rounded-pill badge-success">Disetujui</span>
+                                                    @if ($item->program->status_monev == '1')
+                                                        <span class="badge rounded-pill badge-primary">Menunggu<br>Laporan
+                                                        </span>
+                                                    @elseif ($item->program->status_monev == '2')
+                                                        <span class="badge rounded-pill badge-warning">Menunggu<br>
+                                                            Verifikasi Seksi</span>
+                                                    @elseif ($item->program->status_monev == '3')
+                                                        <span class="badge rounded-pill badge-success">Laporan Monev
+                                                            Terverifikasi</span>
+                                                    @elseif ($item->program->status_monev == '4')
+                                                        <span class="badge rounded-pill badge-success">Segera Revisi Laporan</span>
                                                     @else
-                                                        <span class="badge rounded-pill badge-secondary">Menunggu Revisi</span>
+                                                        <span class="badge rounded-pill badge-danger">Undefined</span>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    <ul class="action">
-                                                        <li class="edit">
-                                                            <a href="#" class="btn-edit">
 
-                                                                <i class="fa-regular fa-pen-to-square"></i>
-                                                            </a>
-                                                            </a>
-                                                        </li>
-                                                        <li class="delete"><a href="#"><i
-                                                                    class="fa-solid fa-trash-can"></i></a></li>
-                                                        <li class="delete">
-                                                    </ul>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

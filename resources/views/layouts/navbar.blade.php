@@ -142,7 +142,8 @@
                         <li class="profile-nav onhover-dropdown pe-0 py-0">
                             <div class="d-flex profile-media"><img class="b-r-10"
                                     src="{{ asset('cuba/assets/images/dashboard/profile.png') }}" alt="">
-                                <div class="flex-grow-1"><span>{{ Auth::user()->name }}</span>
+                                <div class="flex-grow-1">
+                                    <span>Anda login sebagai : {{ Auth::user()->name }}</span>
                                     <p class="mb-0">
                                         @php
                                             $roles = [
@@ -154,8 +155,8 @@
                                                 5 => 'Sekretaris/Admin',
                                             ];
                                         @endphp
-                                        {{ $roles[Auth::user()->role] ?? 'Unknown' }}
-                                        <i class="middle fa-solid fa-angle-down"></i>
+                                        Level akses : {{ $roles[Auth::user()->role] ?? 'Unknown' }}                                     
+                                    <i class="middle fa-solid fa-angle-down"></i>
                                     </p>
                                 </div>
                             </div>
@@ -230,6 +231,7 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
+    @stack('scripts')
 </body>
 
 </html>

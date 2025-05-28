@@ -34,7 +34,7 @@
                             <div>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputModal">
-                                    Tambah Usulan Program
+                                    <i class="fas fa-plus-circle me-1"></i> Add Program
                                 </button>
                             </div>
                         </div>
@@ -85,12 +85,16 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    @if ($item->status_usulan == 'Pending')
-                                                        <span class="badge rounded-pill badge-warning">Pending</span>
-                                                    @elseif ($item->status_usulan == 'Ditolak')
+                                                    @if ($item->status_usulan == '1')
+                                                        <span class="badge rounded-pill badge-primary">Tahap Usulan</span>
+                                                    @elseif ($item->status_usulan == '2')
+                                                        <span class="badge rounded-pill badge-success">Tahap Pra
+                                                            Sidang</span>
+                                                    @elseif ($item->status_usulan == '3')
+                                                        <span class="badge rounded-pill badge-success">Ditetapkan
+                                                            </span>
+                                                    @elseif ($item->status_usulan == '4')
                                                         <span class="badge rounded-pill badge-danger">Ditolak</span>
-                                                    @elseif ($item->status_usulan == 'Disetujui')
-                                                        <span class="badge rounded-pill badge-success">Disetujui</span>
                                                     @else
                                                         <span class="badge rounded-pill badge-secondary">Unknown</span>
                                                     @endif
@@ -147,14 +151,12 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-program_strategis" class="form-label">Program
                                                             Strategis</label>
-                                                        <input type="text" name="program_strategis" class="form-control"
-                                                            id="input-program_strategis" required>
+                                                        <textarea rows="2" name="program_strategis" class="form-control" id="input-program_strategis" required></textarea>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-nama_kegiatan" class="form-label">Nama
                                                             Kegiatan</label>
-                                                        <input type="text" name="nama_kegiatan" class="form-control"
-                                                            id="input-nama_kegiatan" required>
+                                                        <textarea rows="2" name="nama_kegiatan" class="form-control" id="input-nama_kegiatan" required> </textarea>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-seksi_id" class="form-label">Seksi</label>
@@ -168,7 +170,8 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
-                                                        <label for="input-sub_seksi_id" class="form-label">Sub Seksi</label>
+                                                        <label for="input-sub_seksi_id" class="form-label">Sub
+                                                            Seksi</label>
                                                         <select name="sub_seksi_id" id="input-sub_seksi_id"
                                                             class="form-select">
                                                             <option value="">-- Pilih Sub Seksi --</option>
@@ -239,11 +242,10 @@
                                 </div>
                             </div>
 
-
                             <!-- Edit Modal -->
                             <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel"
                                 aria-hidden="true">
-                                <div class="modal-dialog modal-lg">
+                                <div class="modal-dialog modal-xl">
                                     <form id="editForm" method="POST" action="#">
                                         @csrf
                                         @method('PUT')
@@ -254,98 +256,106 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <!-- Form fields mirip modal input -->
-                                                <div class="mb-3">
-                                                    <label for="edit-program_strategis" class="form-label">Program
-                                                        Strategis</label>
-                                                    <input type="text" name="program_strategis" class="form-control"
-                                                        id="edit-program_strategis" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-nama_kegiatan" class="form-label">Nama
-                                                        Kegiatan</label>
-                                                    <input type="text" name="nama_kegiatan" class="form-control"
-                                                        id="edit-nama_kegiatan" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-seksi_id" class="form-label">Seksi</label>
-                                                    <select name="seksi_id" id="edit-seksi_id" class="form-select"
-                                                        required>
-                                                        <option value="">-- Pilih Seksi --</option>
-                                                        @foreach ($seksiList as $seksi)
-                                                            <option value="{{ $seksi->id }}">{{ $seksi->nama_seksi }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-sub_seksi_id" class="form-label">Sub Seksi</label>
-                                                    <select name="sub_seksi_id" id="edit-sub_seksi_id"
-                                                        class="form-select">
-                                                        <option value="">-- Pilih Sub Seksi --</option>
-                                                        @foreach ($subSeksiList as $subSeksi)
-                                                            <option value="{{ $subSeksi->id }}">
-                                                                {{ $subSeksi->nama_sub_seksi }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-indikator" class="form-label">Indikator</label>
-                                                    <input type="text" name="indikator" class="form-control"
-                                                        id="edit-indikator">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-biaya" class="form-label">Biaya</label>
-                                                    <input type="number" name="biaya" class="form-control"
-                                                        id="edit-biaya" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-tempat_kegiatan" class="form-label">Tempat
-                                                        Kegiatan</label>
-                                                    <input type="text" name="tempat_kegiatan" class="form-control"
-                                                        id="edit-tempat_kegiatan">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-waktu_mulai" class="form-label">Waktu Mulai</label>
-                                                    <input type="datetime-local" name="waktu_mulai" class="form-control"
-                                                        id="edit-waktu_mulai" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-waktu_selesai" class="form-label">Waktu
-                                                        Selesai</label>
-                                                    <input type="datetime-local" name="waktu_selesai"
-                                                        class="form-control" id="edit-waktu_selesai" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-keterangan_waktu" class="form-label">Keterangan
-                                                        Waktu</label>
-                                                    <textarea name="keterangan_waktu" class="form-control" id="edit-keterangan_waktu" rows="2"></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-keterangan" class="form-label">Keterangan</label>
-                                                    <textarea name="keterangan" class="form-control" id="edit-keterangan" rows="2"></textarea>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-tahun" class="form-label">Tahun</label>
-                                                    <input type="number" name="tahun" class="form-control"
-                                                        id="edit-tahun" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="edit-tahun_renstra" class="form-label">Periode
-                                                        Renstra</label>
-                                                    <input type="text" name="tahun_renstra" class="form-control"
-                                                        id="edit-tahun_renstra" required>
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-program_strategis" class="form-label">Program
+                                                                Strategis</label>
+                                                            <textarea name="program_strategis" class="form-control" id="edit-program_strategis" rows="2" required></textarea>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-nama_kegiatan" class="form-label">Nama
+                                                                Kegiatan</label>
+                                                            <textarea name="nama_kegiatan" class="form-control" id="edit-nama_kegiatan" rows="2" required></textarea>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-seksi_id" class="form-label">Seksi</label>
+                                                            <select name="seksi_id" id="edit-seksi_id"
+                                                                class="form-select" required>
+                                                                <option value="">-- Pilih Seksi --</option>
+                                                                @foreach ($seksiList as $seksi)
+                                                                    <option value="{{ $seksi->id }}">
+                                                                        {{ $seksi->nama_seksi }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-sub_seksi_id" class="form-label">Sub
+                                                                Seksi</label>
+                                                            <select name="sub_seksi_id" id="edit-sub_seksi_id"
+                                                                class="form-select">
+                                                                <option value="">-- Pilih Sub Seksi --</option>
+                                                                @foreach ($subSeksiList as $subSeksi)
+                                                                    <option value="{{ $subSeksi->id }}">
+                                                                        {{ $subSeksi->nama_sub_seksi }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-indikator"
+                                                                class="form-label">Indikator</label>
+                                                            <textarea name="indikator" class="form-control" id="edit-indikator" rows="2"></textarea>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-biaya" class="form-label">Biaya</label>
+                                                            <input type="number" name="biaya" class="form-control"
+                                                                id="edit-biaya" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-tempat_kegiatan" class="form-label">Tempat
+                                                                Kegiatan</label>
+                                                            <input type="text" name="tempat_kegiatan"
+                                                                class="form-control" id="edit-tempat_kegiatan">
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-waktu_mulai" class="form-label">Waktu
+                                                                Mulai</label>
+                                                            <input type="datetime-local" name="waktu_mulai"
+                                                                class="form-control" id="edit-waktu_mulai" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-waktu_selesai" class="form-label">Waktu
+                                                                Selesai</label>
+                                                            <input type="datetime-local" name="waktu_selesai"
+                                                                class="form-control" id="edit-waktu_selesai" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-keterangan_waktu"
+                                                                class="form-label">Keterangan Waktu</label>
+                                                            <textarea name="keterangan_waktu" class="form-control" id="edit-keterangan_waktu" rows="2"></textarea>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-keterangan"
+                                                                class="form-label">Keterangan</label>
+                                                            <textarea name="keterangan" class="form-control" id="edit-keterangan" rows="2"></textarea>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-tahun" class="form-label">Tahun</label>
+                                                            <input type="number" name="tahun" class="form-control"
+                                                                id="edit-tahun" required>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="edit-tahun_renstra" class="form-label">Periode
+                                                                Renstra</label>
+                                                            <input type="text" name="tahun_renstra"
+                                                                class="form-control" id="edit-tahun_renstra" required>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Batal</button>
-                                                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-save me-1"></i> Simpan Perubahan
+                                                </button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
+
+
 
                             <!-- Delete Modal -->
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"

@@ -55,12 +55,21 @@
 
                                             <ul class="sidebar-submenu">
                                                 <li>
-                                                    <a href="{{ route('seksi.verifikasi') }}">Verifikasi <span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
+                                                    <a href="{{ route('seksi.verifikasi') }}">Verifikasi <span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
                                                     </a>
                                                 </li>
-                                                <li><a href="{{ route('seksi.verifikasi_disetujui') }}">Penetapan <span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                <li>
+                                                    <a href="{{ route('seksi.verifikasi_prasidang') }}">Pra Sidang <span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramPrasidang ?? 0 }}</span>
+                                                    </a>
                                                 </li>
-                                                <li><a href="{{ route('seksi.verifikasi_ditolak') }}">Ditolak <span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('seksi.verifikasi_disetujui') }}">Penetapan <span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('seksi.verifikasi_ditolak') }}">Ditolak <span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a>
+                                                </li>
 
                                             </ul>
                                         </li>
@@ -74,15 +83,21 @@
 
                                             <ul class="sidebar-submenu">
                                                 <li>
-                                                    <a href="{{ route('seksi.monev') }}">Verifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
+                                                    <a href="{{ route('seksi.monev') }}">Menunggu Verifikasi<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitVerifikasi ?? 0 }}</span>
                                                     </a>
                                                 </li>
-                                                <li><a href="{{ route('seksi.verifikasi_disetujui') }}">Disetujui<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                <li><a href="{{ route('seksi.verif_index') }}">Sudah
+                                                        Verifikasi<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
                                                 </li>
-                                                <li><a href="{{ route('seksi.verifikasi_ditolak') }}">Revisi<span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('seksi.verifikasi_ditolak') }}">Revisi
+                                                        Laporan<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a>
+                                                </li>
 
                                             </ul>
-                                        </li>     
+                                        </li>
 
                                         <li class="sidebar-main-title">
                                             <div>
@@ -145,9 +160,19 @@
                                             </a>
 
                                             <ul class="sidebar-submenu">
-                                                <li><a href="{{ route('subseksi.usulan') }}">Usulan<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span></a></li>
-                                                <li><a href="{{ route('subseksi.usulan_disetujui') }}">Penetapan<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a></li>
-                                                <li><a href="{{ route('subseksi.usulan_ditolak') }}">Ditolak<span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('subseksi.usulan') }}">Tahap Usulan<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.usulan_prasidang') }}">Tahap
+                                                        Prasidang<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramPrasidang ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.usulan_disetujui') }}">Penetapan<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.usulan_ditolak') }}">Ditolak<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a>
+                                                </li>
 
                                             </ul>
 
@@ -166,18 +191,29 @@
                                             </a>
 
                                             <ul class="sidebar-submenu">
-                                                <li><a href="{{ route('subseksi.monev') }}">Input Monev<span class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span></a></li>
-                                                <li><a href="{{ route('subseksi.monev_waiting') }}">Menunggu Verifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a></li>
-                                                <li><a href="{{ route('subseksi.usulan_ditolak') }}">Terverifikasi<span class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a></li>
+                                                <li><a href="{{ route('subseksi.monev') }}">Input Monev<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitInput ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.monev_waiting') }}">Menunggu
+                                                        Verifikasi<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitVerifikasi ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.monev_approve') }}">Sudah
+                                                        Verifikasi<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitVerifikasi ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.monev_revisi_input') }}">Revisi Laporan<span
+                                                            class="badge badge-light-secondary float-end"></span></a>
+                                                </li>
 
                                             </ul>
                                         </li>
-                                        
-                                        
 
-                                        
 
-                                        
+
+
+
+
 
                                         <li class="sidebar-main-title">
                                             <div>

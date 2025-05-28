@@ -196,7 +196,30 @@
                                                         </div>
                                                     </div>
 
-                                                    
+                                                    {{-- Form Update Status --}}
+                                                    <form action="{{ route('seksi.verifikasi_update', $item->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="row align-items-end">
+                                                            <div class="col-md-6">
+                                                                <label for="status_usulan_{{ $item->id }}"
+                                                                    class="form-label"><strong>Update Status
+                                                                        Usulan</strong></label>
+                                                                <select name="status_usulan" id="status_usulan_{{ $item->id }}" class="form-select" required>
+                                                                    <option value="">-- Pilih Status --</option>                                                                    
+                                                                    <option value="3" {{ $item->status_usulan == '3' ? 'selected' : '' }}>Penetapan</option>
+                                                                    <option value="4" {{ $item->status_usulan == '4' ? 'selected' : '' }}>Tolak</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <button type="submit"
+                                                                    class="btn btn-success mt-4 d-inline-flex align-items-center gap-2">
+                                                                    <i class="fa-solid fa-check-circle"></i> VERIFIKASI
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
 
                                                 </div>
                                             </div>

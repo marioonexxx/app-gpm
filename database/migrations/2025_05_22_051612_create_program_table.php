@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('keterangan')->nullable();
             $table->string('tahun')->nullable();
             $table->string('tahun_renstra')->nullable();      
-            $table->string('status_usulan')->default('Pending')->nullable(); 
-            $table->string('status_monev')->default('Pending')->nullable();
-            
+            $table->string('status_usulan')->default('1')->nullable()->comment('1. Usulan, 2. Pra Sidang, 3. Penetapan, 4. Ditolak'); 
+            $table->string('status_monev')->default('1')->nullable()->comment('1. Belum Monev, 2. Revisi, 3. Verifikasi');
+            $table->string('monev_revisi')->default('NULL')->nullable();
 
             $table->timestamps();
 

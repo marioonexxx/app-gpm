@@ -28,10 +28,14 @@ class AppServiceProvider extends ServiceProvider
 
         View::composer('layouts.partial.sidebar', function ($view) {
         $ProgramCount = Program::count();
-        $ProgramPending = Program::where('status_usulan','Pending')->count();
-        $ProgramApprove = Program::where('status_usulan','Disetujui')->count();
-        $ProgramReject = Program::where('status_usulan','Ditolak')->count();
-        $view->with(compact('ProgramCount','ProgramPending','ProgramApprove','ProgramReject'));
+        $ProgramPending = Program::where('status_usulan','1')->count();
+        $ProgramPrasidang = Program::where('status_usulan','2')->count();
+        $ProgramApprove = Program::where('status_usulan','3')->count();
+        $ProgramReject = Program::where('status_usulan','4')->count();
+        $MonevWaitVerifikasi = Program::where('status_monev', '2')->count();
+        $MonevWaitInput = Program::where('status_monev','1')->where('status_usulan','3')->count();
+
+        $view->with(compact('ProgramCount','ProgramPending','ProgramPrasidang','ProgramApprove','ProgramReject','MonevWaitVerifikasi','MonevWaitInput'));
     });
     }
 }

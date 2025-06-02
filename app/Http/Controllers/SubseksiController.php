@@ -7,12 +7,18 @@ use App\Models\Program;
 use App\Models\Seksi;
 use App\Models\Sub_seksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SubseksiController extends Controller
 {
     public function index()
     {
-        return view('subseksi.dashboard');
+         $countProgram = Program::count();
+
+        $data = Program::selectRaw('status_usulan, COUNT(*) as total')
+            ->groupBy('status_usulan')
+            ->get();
+        return view('subseksi.dashboard', compact('data'));
     }
     public function usulan_index()
     {
@@ -191,10 +197,9 @@ class SubseksiController extends Controller
         return view('subseksi.monev_disetujui', compact('listMonev'));
     }
 
-    public function monev_update_revisi(Request $request)
+    public function monev_update_revisi(Request $request, $id)
     {
-        $request->validate([
-            'program_id' => 'required|exists:program,id',
+        $data = $request->validate([
             'kesesuaian_waktu' => 'required|string',
             'realisasi_anggaran' => 'required|numeric',
             'tingkat_kes_anggaran' => 'required|string',
@@ -202,23 +207,26 @@ class SubseksiController extends Controller
             'output_kegiatan' => 'required|string',
             'kendala' => 'required|string',
             'rencana_tin_lanjut' => 'required|string',
+            'upload_laporan' => 'nullable|file|mimes:pdf|max:5120',
         ]);
 
-        $monev = Monev::where('program_id', $request->program_id)->first();
-        if (!$monev) {
-            return redirect()->back()->with('error', 'Data Monev tidak ditemukan.');
+        $monev = Monev::findOrFail($id);
+
+        if ($request->hasFile('upload_laporan')) {
+            $data['upload_laporan'] = $request->file('upload_laporan')->store('laporan', 'public');
         }
 
-        $monev->update([
-            'kesesuaian_waktu' => $request->kesesuaian_waktu,
-            'realisasi_anggaran' => $request->realisasi_anggaran,
-            'tingkat_kes_anggaran' => $request->tingkat_kes_anggaran,
-            'tingkat_par_jemaat' => $request->tingkat_par_jemaat,
-            'output_kegiatan' => $request->output_kegiatan,
-            'kendala' => $request->kendala,
-            'rencana_tin_lanjut' => $request->rencana_tin_lanjut,
-        ]);
+        $monev->update($data);
 
-        return redirect()->back()->with('success', 'Revisi Laporan Monev berhasil diperbarui.');
+        // ✅ Update langsung ke tabel programs
+        DB::table('program')->where('id', $monev->program_id)->update(['status_monev' => 2]);
+
+
+        return redirect()->back()->with('success', 'Data MONEV berhasil diperbarui');
+    }
+
+    public function profile_index()
+    {
+        return view('subseksi.profile_index');
     }
 }

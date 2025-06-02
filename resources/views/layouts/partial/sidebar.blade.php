@@ -107,7 +107,8 @@
 
                                         <li class="sidebar-list">
                                             <i class="fa-solid fa-thumbtack"></i>
-                                            <a class="sidebar-link sidebar-title link-nav" href="file-manager.html">
+                                            <a class="sidebar-link sidebar-title link-nav"
+                                                href="{{ route('seksi.profile_index') }}">
                                                 <i data-feather="users"></i>
                                                 <span>Profil</span></a>
                                         </li>
@@ -136,6 +137,13 @@
                                                 <h6>Pinned</h6>
                                             </div>
                                         </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav"
+                                                href="{{ route('subseksi.dashboard') }}">
+                                                <i class="fa-solid fa-home text-primary"></i>
+                                                <span>Dashboard</span></a>
+                                        </li>
                                         <li class="sidebar-main-title">
                                             <div>
                                                 <h6>PROGRAM KERJA</h6>
@@ -146,16 +154,7 @@
                                             <i class="fa-solid fa-thumbtack"></i>
                                             <label class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label>
                                             <a class="sidebar-link sidebar-title" href="#">
-                                                <svg class="stroke-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-files') }}">
-                                                    </use>
-                                                </svg>
-                                                <svg class="fill-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-edit') }}">
-                                                    </use>
-                                                </svg>
+                                                <i class="fa-solid fa-navicon text-primary"></i>
                                                 <span>Program </span>
                                             </a>
 
@@ -177,16 +176,7 @@
                                             </ul>
 
                                             <a class="sidebar-link sidebar-title" href="#">
-                                                <svg class="stroke-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}">
-                                                    </use>
-                                                </svg>
-                                                <svg class="fill-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-home') }}">
-                                                    </use>
-                                                </svg>
+                                                <i class="fa-solid fa-pen-to-square text-primary"></i>
                                                 <span>Monev</span>
                                             </a>
 
@@ -200,10 +190,11 @@
                                                 </li>
                                                 <li><a href="{{ route('subseksi.monev_approve') }}">Sudah
                                                         Verifikasi<span
-                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitVerifikasi ?? 0 }}</span></a>
+                                                            class="badge badge-light-secondary float-end">{{ $MonevVerifikasiAccept ?? 0 }}</span></a>
                                                 </li>
-                                                <li><a href="{{ route('subseksi.monev_revisi_input') }}">Revisi Laporan<span
-                                                            class="badge badge-light-secondary float-end"></span></a>
+                                                <li><a href="{{ route('subseksi.monev_revisi_input') }}">Revisi
+                                                        Laporan<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevRevisi ?? 0 }}</span></a>
                                                 </li>
 
                                             </ul>
@@ -223,15 +214,9 @@
 
                                         <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i><a
                                                 class="sidebar-link sidebar-title link-nav"
-                                                href="file-manager.html"><svg class="stroke-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-file') }}">
-                                                    </use>
-                                                </svg><svg class="fill-icon">
-                                                    <use
-                                                        href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-file') }}">
-                                                    </use>
-                                                </svg><span>Profil</span></a></li>
+                                                href="{{ route('subseksi.profile_index') }}">
+                                                <i class="fa-solid fa-user text-primary"></i>
+                                                <span>Profil</span></a></li>
 
 
 
@@ -252,6 +237,148 @@
 
                             {{-- ROLE SEKRETARIS --}}
                             @if (Auth::user()->role == '5')
+                                <div id="sidebar-menu">
+                                    <ul class="sidebar-links" id="simple-bar">
+
+                                        <li class="back-btn"><a href="{{ route('sekretaris.dashboard') }}"><img
+                                                    class="img-fluid"
+                                                    src="{{ asset('cuba/assets/images/logo/logo-icon.png') }}"
+                                                    alt=""></a>
+                                            <div class="mobile-back text-end"><span>Back</span><i
+                                                    class="fa-solid fa-angle-right ps-2" aria-hidden="true"></i></div>
+                                        </li>
+
+                                        <li class="pin-title sidebar-main-title">
+                                            <div>
+                                                <h6>Pinned</h6>
+                                            </div>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav"
+                                                href="{{ route('subseksi.dashboard') }}">
+                                                <i class="fa-solid fa-home text-primary"></i>
+                                                <span>Dashboard</span></a>
+                                        </li>
+                                        <li class="sidebar-main-title">
+                                            <div>
+                                                <h6>PROGRAM STRATEGIS<br>RENSTRA</h6>
+                                            </div>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav"
+                                                href="{{ route('subseksi.dashboard') }}">
+                                                <i class="fa-solid fa-edit text-primary"></i>
+                                                <span>Manage</span></a>
+                                        </li>
+                                        <li class="sidebar-main-title">
+                                            <div>
+                                                <h6>PROGRAM KERJA</h6>
+                                            </div>
+                                        </li>
+
+
+
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <label class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label>
+                                            <a class="sidebar-link sidebar-title" href="#">
+                                                <i class="fa-solid fa-navicon text-primary"></i>
+                                                <span>Program </span>
+                                            </a>
+
+                                            <ul class="sidebar-submenu">
+                                                <li><a href="{{ route('subseksi.usulan') }}">Tahap Usulan<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.usulan_prasidang') }}">Tahap
+                                                        Prasidang<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramPrasidang ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.usulan_disetujui') }}">Penetapan<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.usulan_ditolak') }}">Ditolak<span
+                                                            class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span></a>
+                                                </li>
+
+                                            </ul>
+
+
+                                            <a class="sidebar-link sidebar-title" href="#">
+                                                <i class="fa-solid fa-pen-to-square text-primary"></i>
+                                                <span>Monev</span>
+                                            </a>
+
+                                            <ul class="sidebar-submenu">
+                                                <li><a href="{{ route('subseksi.monev') }}">Input Monev<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitInput ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.monev_waiting') }}">Menunggu
+                                                        Verifikasi<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevWaitVerifikasi ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.monev_approve') }}">Sudah
+                                                        Verifikasi<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevVerifikasiAccept ?? 0 }}</span></a>
+                                                </li>
+                                                <li><a href="{{ route('subseksi.monev_revisi_input') }}">Revisi
+                                                        Laporan<span
+                                                            class="badge badge-light-secondary float-end">{{ $MonevRevisi ?? 0 }}</span></a>
+                                                </li>
+
+                                            </ul>
+                                        </li>
+
+                                        <li class="sidebar-main-title">
+                                            <div>
+                                                <h6>SETTING</h6>
+                                            </div>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            
+                                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('subseksi.profile_index') }}">
+                                            <i class="fa-solid fa-bullhorn text-primary"></i>
+                                            <span>Posting Informasi</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('subseksi.profile_index') }}">
+                                            <i class="fa-solid fa-users text-primary"></i>
+                                            <span>Manajemen Akun</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('subseksi.profile_index') }}">
+                                            <i class="fa-solid fa-calendar text-primary"></i>
+                                            <span>Periode</span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('subseksi.profile_index') }}">
+                                            <i class="fa-solid fa-calendar text-primary"></i>
+                                            <span>Seksi & Sub Seksi</span>
+                                            </a>
+                                        </li>
+
+                                        <li class="sidebar-main-title">
+                                            <div>
+                                                <h6>PENGATURAN AKUN</h6>
+                                            </div>
+                                        </li>
+                                        <li class="sidebar-list">
+                                            <i class="fa-solid fa-thumbtack"></i>
+                                            <a class="sidebar-link sidebar-title link-nav" href="{{ route('sekretaris.profile_index') }}">
+                                            <i class="fa-solid fa-user text-primary"></i>
+                                            <span>Profil</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             @endif
 
                             {{-- ROLE ADMINISTRATOR --}}

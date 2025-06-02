@@ -45,6 +45,29 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Data Statistik Monitoring dan Evaluasi</h5>
+                            <p class="f-m-light mt-1">Data statistik monitoring dan evaluasi program yang ditampilkan dalam berbagai chart/diagram.</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 d-flex justify-content-center">
+                                    <div id="pieChart" style="height: 350px; width: 100%; max-width: 400px;"></div>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-center">
+                                    <div id="pieChart2" style="height: 350px; width: 100%; max-width: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Container-fluid Ends-->
     </div>
 

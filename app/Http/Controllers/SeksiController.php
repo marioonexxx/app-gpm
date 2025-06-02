@@ -116,4 +116,9 @@ class SeksiController extends Controller
 
         return redirect()->back()->with('success', 'Laporan dan Catatan Revisi berhasil.');
     }
+
+    public function profile_index()
+    {
+        return view('seksi.profile_index');
+    }
 }

@@ -110,22 +110,110 @@
                                                 <td>
                                                     <ul class="action">
                                                         <li class="edit">
-                                                            <a href="#" class="btn-edit">
-
+                                                            <a href="#" class="badge bg-primary text-white"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editModal{{ $item->id }}">
                                                                 <i class="fa-regular fa-pen-to-square"></i>
                                                             </a>
-                                                            </a>
+
                                                         </li>
 
                                                     </ul>
                                                 </td>
                                             </tr>
+
+                                            <!-- Modal Edit -->
+                                            <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1"
+                                                aria-labelledby="editModalLabel{{ $item->id }}" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg">
+                                                    <form action="{{ route('subseksi.monev_update_revisi', $item->id) }}" method="POST"
+                                                        enctype="multipart/form-data">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"
+                                                                    id="editModalLabel{{ $item->id }}">Edit Data MONEV
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <!-- Form Inputs -->
+                                                                <div class="mb-3">
+                                                                    <label for="kesesuaian_waktu{{ $item->id }}"
+                                                                        class="form-label">Kesesuaian Waktu</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="kesesuaian_waktu{{ $item->id }}"
+                                                                        name="kesesuaian_waktu"
+                                                                        value="{{ $item->kesesuaian_waktu }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="realisasi_anggaran{{ $item->id }}"
+                                                                        class="form-label">Realisasi Anggaran</label>
+                                                                    <input type="number" class="form-control"
+                                                                        name="realisasi_anggaran"
+                                                                        value="{{ $item->realisasi_anggaran }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="tingkat_kes_anggaran{{ $item->id }}"
+                                                                        class="form-label">Tingkat Kesesuaian
+                                                                        Anggaran</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="tingkat_kes_anggaran"
+                                                                        value="{{ $item->tingkat_kes_anggaran }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="tingkat_par_jemaat{{ $item->id }}"
+                                                                        class="form-label">Tingkat Partisipasi
+                                                                        Jemaat</label>
+                                                                    <input type="text" class="form-control"
+                                                                        name="tingkat_par_jemaat"
+                                                                        value="{{ $item->tingkat_par_jemaat }}">
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="output_kegiatan{{ $item->id }}"
+                                                                        class="form-label">Output Kegiatan</label>
+                                                                    <textarea class="form-control" name="output_kegiatan">{{ $item->output_kegiatan }}</textarea>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="kendala{{ $item->id }}"
+                                                                        class="form-label">Kendala</label>
+                                                                    <textarea class="form-control" name="kendala">{{ $item->kendala }}</textarea>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="rencana_tin_lanjut{{ $item->id }}"
+                                                                        class="form-label">Rencana Tindak Lanjut</label>
+                                                                    <textarea class="form-control" name="rencana_tin_lanjut">{{ $item->rencana_tin_lanjut }}</textarea>
+                                                                </div>
+
+                                                                <div class="mb-3">
+                                                                    <label for="upload_laporan{{ $item->id }}"
+                                                                        class="form-label">Upload Laporan (PDF)</label>
+                                                                    <input type="file" class="form-control"
+                                                                        name="upload_laporan" accept="application/pdf">
+                                                                    <small class="text-muted">File maksimal 5MB</small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-success">Simpan
+                                                                    Perubahan</button>
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Batal</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         @endforeach
                                     </tbody>
                                 </table>
-
-
-
                             </div>
                         </div>
                     </div>

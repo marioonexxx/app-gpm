@@ -57,6 +57,7 @@
                                             <th>Rencana Tindak Lanjut</th>
                                             <th>Laporan</th>
                                             <th>Status Monev</th>
+                                            {{-- <th>Status Revisi (Jika Ada)</th> --}}
                                             
                                         </tr>
                                     </thead>
@@ -100,6 +101,9 @@
                                                         <span class="badge rounded-pill badge-danger">Undefined</span>
                                                     @endif
                                                 </td>
+                                                {{-- <td>
+                                                    {{ $item->monev_revisi }}
+                                                </td> --}}
                                                 
                                             </tr>
                                         @endforeach

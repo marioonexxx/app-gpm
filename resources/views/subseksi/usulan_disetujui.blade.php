@@ -88,12 +88,12 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <button type="button"
-                                                        class="btn btn-info d-inline-flex align-items-center gap-2"
-                                                        data-bs-toggle="modal"
+                                                    <span
+                                                        class="badge bg-info text-white d-inline-flex align-items-center gap-2"
+                                                        role="button" data-bs-toggle="modal"
                                                         data-bs-target="#detailModal{{ $item->id }}">
-                                                        <i class="fa-solid fa-circle-info fs-7"></i>Detail
-                                                    </button>
+                                                        <i class="fa-solid fa-circle-info fs-7"></i> Detail
+                                                    </span>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -198,18 +198,21 @@
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Status
                                                                     Usulan</strong></label><br>
-                                                            @if ($item->status_usulan == 'Pending')
+                                                            @if ($item->status_usulan == '1')
+                                                                <span class="badge rounded-pill badge-success">Menunggu
+                                                                    Verifikasi</span>
+                                                            @elseif ($item->status_usulan == '2')
+                                                                <span class="badge rounded-pill badge-danger">Tahap Pra
+                                                                    Sidang</span>
+                                                            @elseif ($item->status_usulan == '3')
+                                                                <span class="badge rounded-pill badge-success">Ditetapkan
+                                                                    Sidang</span>
+                                                            @elseif ($item->status_usulan == '4')
                                                                 <span
-                                                                    class="badge rounded-pill badge-warning">Pending</span>
-                                                            @elseif ($item->status_usulan == 'Disetujui')
-                                                                <span
-                                                                    class="badge rounded-pill badge-success">Disetujui</span>
-                                                            @elseif ($item->status_usulan == 'Ditolak')
-                                                                <span
-                                                                    class="badge rounded-pill badge-danger">Ditolak</span>
+                                                                    class="badge rounded-pill badge-success">Ditolak</span>
                                                             @else
-                                                                <span class="badge rounded-pill badge-secondary">Tidak
-                                                                    Diketahui</span>
+                                                                <span
+                                                                    class="badge rounded-pill badge-secondary">Unknown</span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -235,7 +238,7 @@
 
     {{-- Sweetalert --}}
     @if (session('success'))
-       <script>
+        <script>
             document.addEventListener("DOMContentLoaded", function() {
                 Swal.fire({
                     title: 'Berhasil!',

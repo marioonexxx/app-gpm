@@ -57,6 +57,7 @@
                                             <th>Kendala Pelaksanaan</th>
                                             <th>Rencana Tindak Lanjut</th>
                                             <th>Laporan</th>
+                                            <th>Catatan Revisi (Jika Ada)</th>
                                             <th>Status Monev</th>
                                             <th>Action</th>
                                         </tr>
@@ -68,7 +69,7 @@
                                                 <td>{{ $item->program->nama_kegiatan ?? '-' }}</td>
                                                 <td>{{ $item->program->kelompok_sasaran ?? '-' }}</td>
                                                 <td>{{ $item->kesesuaian_waktu }}</td>
-                                                <td>{{ $item->realisasi_anggaran }}</td>
+                                                <td>{{ 'Rp ' . number_format($item->realisasi_anggaran, 0, ',', '.') }}</td>
 
                                                 <td>{{ $item->tingkat_kes_anggaran }}</td>
                                                 <td>{{ $item->tingkat_par_jemaat }}</td>
@@ -87,6 +88,7 @@
                                                         <i class="fa-solid fa-ban text-muted" title="Tidak ada file"></i>
                                                     @endif
                                                 </td>
+                                                <td>{{ $item->program->monev_revisi }}</td>
                                                 <td>
                                                     @if ($item->program->status_monev == '1')
                                                         <span class="badge rounded-pill badge-primary">Menunggu<br>Laporan
@@ -117,18 +119,140 @@
                                                             data-id="{{ $item->program->id }}">
                                                             <i class="fa-solid fa-rotate-left me-1"></i> Revisi
                                                         </button>
+                                                        <button type="button"
+                                                            class="badge bg-info border-0 d-inline-flex align-items-center gap-1"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#detailModal{{ $item->id }}">
+                                                            <i class="fa-solid fa-circle-info"></i> Detail
+                                                        </button>
                                                     </div>
                                                 </td>
+
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
 
+                                @foreach ($listMonev as $item)
+                                    <!-- Modal Detail -->
+                                    <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1"
+                                        aria-labelledby="detailModalLabel{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="detailModalLabel{{ $item->id }}">Detail
+                                                        Laporan MONEV</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table table-striped">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Program Strategis</th>
+                                                                <td>{{ $item->program->program_strategis ?? '-' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Nama Kegiatan</th>
+                                                                <td>{{ $item->program->nama_kegiatan ?? '-' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Kelompok Sasaran</th>
+                                                                <td>{{ $item->program->kelompok_sasaran ?? '-' }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Kesesuaian Waktu</th>
+                                                                <td>{{ $item->kesesuaian_waktu }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Realisasi Anggaran</th>
+                                                                 <td>{{ 'Rp ' . number_format($item->realisasi_anggaran, 0, ',', '.') }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Tingkat Kesesuaian Penggunaan Anggaran</th>
+                                                                <td>{{ $item->tingkat_kes_anggaran }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Tingkat Partisipasi Jemaat</th>
+                                                                <td>{{ $item->tingkat_par_jemaat }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Output Kegiatan</th>
+                                                                <td>{{ $item->output_kegiatan }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Kendala Pelaksanaan</th>
+                                                                <td>{{ $item->kendala }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Rencana Tindak Lanjut</th>
+                                                                <td>{{ $item->rencana_tin_lanjut }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Laporan</th>
+                                                                <td>
+                                                                    @if ($item->upload_laporan)
+                                                                        <a href="{{ asset('storage/' . $item->upload_laporan) }}"
+                                                                            target="_blank" class="text-danger">
+                                                                            <i class="fa-solid fa-file-pdf me-1"></i>
+                                                                            Download
+                                                                        </a>
+                                                                    @else
+                                                                        <i class="fa-solid fa-ban text-muted"></i> Tidak ada
+                                                                        file
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Catatan Revisi</th>
+                                                                <td>
+                                                                    @if (!empty($item->program->monev_revisi))
+                                                                        <span
+                                                                            class="badge bg-danger">{{ $item->program->monev_revisi }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Status MONEV</th>
+                                                                <td>
+                                                                    @if ($item->program->status_monev == '1')
+                                                                        <span class="badge bg-primary">Menunggu
+                                                                            Laporan</span>
+                                                                    @elseif ($item->program->status_monev == '2')
+                                                                        <span class="badge bg-warning">Menunggu
+                                                                            Verifikasi</span>
+                                                                    @elseif ($item->program->status_monev == '3')
+                                                                        <span class="badge bg-success">Laporan
+                                                                            Terverifikasi</span>
+                                                                    @else
+                                                                        <span class="badge bg-secondary">Undefined</span>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+
+
+
+
                                 <!-- Modal Revisi -->
                                 <div class="modal fade" id="modalRevisi" tabindex="-1" aria-labelledby="modalRevisiLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
-                                        <form id="formRevisi" method="POST" action="{{ route('seksi.verifikasi_input_revisi') }}">
+                                        <form id="formRevisi" method="POST"
+                                            action="{{ route('seksi.verifikasi_input_revisi') }}">
                                             @csrf
                                             <input type="hidden" name="program_id" id="modalProgramId">
                                             <div class="modal-content">
@@ -140,7 +264,8 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="mb-3">
-                                                        <label for="catatanRevisi" class="form-label">Catatan Revisi</label>
+                                                        <label for="catatanRevisi" class="form-label">Catatan
+                                                            Revisi</label>
                                                         <textarea class="form-control" name="monev_revisi" id="catatanRevisi" rows="4" required></textarea>
                                                     </div>
                                                 </div>

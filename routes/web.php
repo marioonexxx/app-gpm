@@ -80,6 +80,7 @@ Route::middleware('auth','verified','Seksi')->group(function(){
     Route::post('/seksi/monev_verifikasi/{id}',[SeksiController::class, 'monev_verifikasi'])->name('seksi.verifikasi_monev');
     Route::post('/seksi/monev_verifikasi_revisi/{id}',[SeksiController::class, 'monev_verifikasi_revisi'])->name('seksi.verifikasi_monev_revisi');
     Route::post('/seksi/monev_input_revisi',[SeksiController::class, 'monev_input_revisi'])->name('seksi.verifikasi_input_revisi');
+    Route::get('/seksi/monev_revisi_index',[SeksiController::class, 'monev_revisi_index'])->name('seksi.monev_revisi_index');
     //PROFILE
     Route::get('/seksi/profile',[SeksiController::class, 'profile_index'])->name('seksi.profile_index');
    

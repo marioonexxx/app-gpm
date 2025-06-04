@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('Title', 'Sistem Informasi Manajemen Gereja - Jemaat GPM Halong Anugerah')
+@section('title', 'Sistem Informasi Manajemen Gereja - Jemaat GPM Halong Anugerah')
 
 @section('content')
     <div class="page-body">

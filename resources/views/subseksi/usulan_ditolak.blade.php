@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('Title', 'Sistem Informasi Manajemen Gereja - Jemaat GPM Halong Anugerah')
+@section('title', 'Sistem Informasi Manajemen Gereja - Jemaat GPM Halong Anugerah')
 
 @section('content')
     <div class="page-body">
@@ -42,6 +42,7 @@
                                             <th>Seksi</th>
                                             <th>Sub Seksi</th>
                                             <th>Indikator</th>
+                                            <th>Kelompok Sasaran</th>
                                             <th>Biaya</th>
                                             <th>Tempat</th>
                                             <th>Waktu Kegiatan</th>
@@ -61,7 +62,9 @@
                                                 <td>{{ $item->seksi->nama_seksi ?? '-' }}</td>
                                                 <td>{{ $item->sub_seksi->nama_sub_seksi ?? '-' }}</td>
                                                 <td>{{ $item->indikator }}</td>
+                                                <td>{{ $item->kelompok_sasaran }}</td>
                                                 <td>Rp{{ number_format($item->biaya, 0, ',', '.') }}</td>
+
                                                 <td>{{ $item->tempat_kegiatan }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($item->waktu_mulai)->translatedFormat('l, d F Y') }}
                                                     -
@@ -72,29 +75,33 @@
                                                 <td>{{ $item->tahun }}</td>
                                                 <td>{{ $item->tahun_renstra }}</td>
                                                 <td>
-                                                    @if ($item->status_usulan == 'Pending')
+                                                    @if ($item->status_usulan == '1')
                                                         <span class="badge rounded-pill badge-warning">Pending</span>
-                                                    @elseif ($item->status_usulan == 'Ditolak')
+                                                    @elseif ($item->status_usulan == '4')
                                                         <span class="badge rounded-pill badge-danger">Ditolak</span>
-                                                    @elseif ($item->status_usulan == 'Disetujui')
+                                                    @elseif ($item->status_usulan == '3')
                                                         <span class="badge rounded-pill badge-success">Disetujui</span>
+                                                    @elseif ($item->status_usulan == '4')
+                                                        <span class="badge rounded-pill badge-success">Ditolak</span>
                                                     @else
                                                         <span class="badge rounded-pill badge-secondary">Unknown</span>
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <button type="button"
-                                                        class="btn btn-info d-inline-flex align-items-center gap-2"
+                                                    <a href="#"
+                                                        class="badge bg-info d-inline-flex align-items-center gap-1 text-decoration-none"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#detailModal{{ $item->id }}">
-                                                        <i class="fa-solid fa-circle-info fs-7"></i>Detail
-                                                    </button>
+                                                        <i class="fa-solid fa-circle-info"></i> Detail
+                                                    </a>
+
                                                 </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
+                            {{-- MODAL --}}
                             @foreach ($listProgram as $item)
                                 <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1"
                                     aria-labelledby="detailModalLabel{{ $item->id }}" aria-hidden="true">
@@ -104,19 +111,20 @@
                                                 <h5 class="modal-title" id="detailModalLabel{{ $item->id }}">Detail
                                                     Program</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                                    aria-label="Tutup"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="container-fluid">
+
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Program
                                                                     Strategis</strong></label>
-                                                            <textarea class="form-control" readonly rows="2">{{ $item->program_strategis }}</textarea>
+                                                            <textarea class="form-control" rows="2" readonly>{{ $item->program_strategis }}</textarea>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Nama Kegiatan</strong></label>
-                                                            <textarea class="form-control" readonly rows="2">{{ $item->nama_kegiatan }}</textarea>
+                                                            <textarea class="form-control" rows="2" readonly>{{ $item->nama_kegiatan }}</textarea>
                                                         </div>
                                                     </div>
 
@@ -137,23 +145,31 @@
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Indikator</strong></label>
-                                                            <textarea class="form-control" readonly rows="4">{{ $item->indikator }}</textarea>
+                                                            <textarea class="form-control" rows="3" readonly>{{ $item->indikator }}</textarea>
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label"><strong>Kelompok
+                                                                    Sasaran</strong></label>
+                                                            <textarea class="form-control" rows="3" readonly>{{ $item->kelompok_sasaran }}</textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Biaya</strong></label>
                                                             <input type="text" class="form-control"
                                                                 value="Rp{{ number_format($item->biaya, 0, ',', '.') }}"
                                                                 readonly>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Tempat
                                                                     Kegiatan</strong></label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $item->tempat_kegiatan }}" readonly>
                                                         </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Waktu
                                                                     Kegiatan</strong></label>
@@ -161,54 +177,58 @@
                                                                 value="{{ \Carbon\Carbon::parse($item->waktu_mulai)->translatedFormat('d F Y') }} - {{ \Carbon\Carbon::parse($item->waktu_selesai)->translatedFormat('d F Y') }}"
                                                                 readonly>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Keterangan
                                                                     Waktu</strong></label>
-                                                            <textarea class="form-control" readonly>{{ $item->keterangan_waktu }}</textarea>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label"><strong>Keterangan</strong></label>
-                                                            <textarea class="form-control" readonly rows="4">{{ $item->keterangan }}</textarea>
+                                                            <textarea class="form-control" rows="2" readonly>{{ $item->keterangan_waktu }}</textarea>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label"><strong>Keterangan</strong></label>
+                                                            <textarea class="form-control" rows="2" readonly>{{ $item->keterangan }}</textarea>
+                                                        </div>
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Tahun</strong></label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $item->tahun }}" readonly>
                                                         </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Periode
                                                                     Renstra</strong></label>
                                                             <input type="text" class="form-control"
                                                                 value="{{ $item->tahun_renstra }}" readonly>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label"><strong>Status
                                                                     Usulan</strong></label><br>
-                                                            @if ($item->status_usulan == 'Pending')
-                                                                <span
-                                                                    class="badge rounded-pill badge-warning">Pending</span>
-                                                            @elseif ($item->status_usulan == 'Disetujui')
-                                                                <span
-                                                                    class="badge rounded-pill badge-success">Disetujui</span>
-                                                            @elseif ($item->status_usulan == 'Ditolak')
-                                                                <span
-                                                                    class="badge rounded-pill badge-danger">Ditolak</span>
-                                                            @else
-                                                                <span class="badge rounded-pill badge-secondary">Tidak
-                                                                    Diketahui</span>
-                                                            @endif
+                                                            @switch($item->status_usulan)
+                                                                @case('1')
+                                                                    <span class="badge rounded-pill bg-success">Tahap Usulan</span>
+                                                                @break
+
+                                                                @case('2')
+                                                                    <span class="badge rounded-pill bg-warning text-dark">Tahap Pra
+                                                                        Sidang</span>
+                                                                @break
+
+                                                                @case('3')
+                                                                    <span class="badge rounded-pill bg-primary">Ditetapkan</span>
+                                                                @break
+
+                                                                @case('4')
+                                                                    <span class="badge rounded-pill bg-danger">Ditolak</span>
+                                                                @break
+
+                                                                @default
+                                                                    <span class="badge rounded-pill bg-secondary">Unknown</span>
+                                                            @endswitch
                                                         </div>
                                                     </div>
-
 
                                                 </div>
                                             </div>
@@ -216,6 +236,9 @@
                                     </div>
                                 </div>
                             @endforeach
+
+
+
                         </div>
                     </div>
                 </div>

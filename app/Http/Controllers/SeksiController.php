@@ -78,11 +78,12 @@ class SeksiController extends Controller
     {
         $listMonev = Monev::with('Program')
             ->whereHas('Program', function ($query) {
-                $query->where('status_usulan', '3');
+                $query->where('status_usulan', '3')
+                ->where('status_monev', '3');
             })
             ->get();
 
-        return view('seksi.monev_menunggu_verifikasi', compact('listMonev'));
+        return view('seksi.monev_verifikasi_disetujui', compact('listMonev'));
     }
     public function monev_verifikasi($id)
     {
@@ -114,7 +115,20 @@ class SeksiController extends Controller
         $program->monev_revisi = $request->monev_revisi;
         $program->save();
 
-        return redirect()->back()->with('success', 'Laporan dan Catatan Revisi berhasil.');
+        return redirect()->back()->with('success', 'Laporan dan Catatan Revisi berhasil diupdate.');
+    }
+
+    public function monev_revisi_index()
+    {
+         $listMonev = Monev::with('Program')
+            ->whereHas('Program', function ($query) {
+                $query->where('status_usulan', '3')
+                    ->where('status_monev', '4');
+            })
+            ->get();
+
+
+        return view('seksi.monev_revisi_index', compact('listMonev'));
     }
 
     public function profile_index()

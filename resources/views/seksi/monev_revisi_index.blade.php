@@ -57,7 +57,7 @@
                                             <th>Kendala Pelaksanaan</th>
                                             <th>Rencana Tindak Lanjut</th>
                                             <th>Laporan</th>
-                                            
+                                            <th>Catatan Revisi (Jika Ada)</th>
                                             <th>Status Monev</th>
                                             <th>Action</th>
                                         </tr>
@@ -88,17 +88,19 @@
                                                         <i class="fa-solid fa-ban text-muted" title="Tidak ada file"></i>
                                                     @endif
                                                 </td>
-                                                
+                                                <td>{{ $item->program->monev_revisi }}</td>
                                                 <td>
                                                     @if ($item->program->status_monev == '1')
                                                         <span class="badge rounded-pill badge-primary">Menunggu<br>Laporan
                                                         </span>
                                                     @elseif ($item->program->status_monev == '2')
-                                                        <span class="badge rounded-pill badge-warning">Menunggu
+                                                        <span class="badge rounded-pill badge-primary">Menunggu
                                                             Verifikasi</span>
                                                     @elseif ($item->program->status_monev == '3')
                                                         <span class="badge rounded-pill badge-success">Laporan Monev
                                                             Terverifikasi</span>
+                                                    @elseif ($item->program->status_monev == '4')
+                                                        <span class="badge rounded-pill badge-danger">Menunggu Perbaikan</span>
                                                     @else
                                                         <span class="badge rounded-pill badge-danger">Undefined</span>
                                                     @endif
@@ -204,7 +206,17 @@
                                                                     @endif
                                                                 </td>
                                                             </tr>
-                                                            
+                                                            <tr>
+                                                                <th>Catatan Revisi</th>
+                                                                <td>
+                                                                    @if (!empty($item->program->monev_revisi))
+                                                                        <span
+                                                                            class="badge bg-danger">{{ $item->program->monev_revisi }}</span>
+                                                                    @else
+                                                                        <span class="text-muted">-</span>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
                                                             <tr>
                                                                 <th>Status MONEV</th>
                                                                 <td>
@@ -218,7 +230,8 @@
                                                                         <span class="badge bg-success">Laporan
                                                                             Terverifikasi</span>
                                                                     @elseif ($item->program->status_monev == '4')
-                                                                        <span class="badge bg-success">Menunggu Perbaikan</span>
+                                                                        <span class="badge bg-success">Menunggu
+                                                                            Perbaikan</span>
                                                                     @else
                                                                         <span class="badge bg-secondary">Undefined</span>
                                                                     @endif

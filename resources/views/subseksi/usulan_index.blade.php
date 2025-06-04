@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('Title', 'Sistem Informasi Manajemen Gereja - Usulan Program Subseksi')
+@section('title', 'Sistem Informasi Manajemen Gereja - Usulan Program Subseksi')
 
 @section('content')
     <div class="page-body">
@@ -55,6 +55,7 @@
                                             <th>Seksi</th>
                                             <th>Sub Seksi</th>
                                             <th>Indikator</th>
+                                            <th>Kelompok Sasaran</th>
                                             <th>Biaya</th>
                                             <th>Tempat</th>
                                             <th>Waktu Kegiatan</th>
@@ -73,7 +74,8 @@
                                                 <td>{{ $item->nama_kegiatan }}</td>
                                                 <td>{{ $item->seksi->nama_seksi ?? '-' }}</td>
                                                 <td>{{ $item->sub_seksi->nama_sub_seksi ?? '-' }}</td>
-                                                <td>{{ $item->indikator }}</td>
+                                                <td>{{ $item->indikator }}</td>                                                
+                                                <td>{{ $item->kelompok_sasaran }}</td>
                                                 <td>Rp{{ number_format($item->biaya, 0, ',', '.') }}</td>
                                                 <td>{{ $item->tempat_kegiatan }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($item->waktu_mulai)->translatedFormat('l, d F Y') }}
@@ -92,7 +94,7 @@
                                                             Sidang</span>
                                                     @elseif ($item->status_usulan == '3')
                                                         <span class="badge rounded-pill badge-success">Ditetapkan
-                                                            </span>
+                                                        </span>
                                                     @elseif ($item->status_usulan == '4')
                                                         <span class="badge rounded-pill badge-danger">Ditolak</span>
                                                     @else
@@ -110,6 +112,7 @@
                                                                 data-sub_seksi_id="{{ $item->sub_seksi_id ?? '' }}"
                                                                 data-indikator="{{ $item->indikator }}"
                                                                 data-biaya="{{ $item->biaya }}"
+                                                                data-kelompok_sasaran="{{ $item->kelompok_sasaran }}"
                                                                 data-tempat_kegiatan="{{ $item->tempat_kegiatan }}"
                                                                 data-waktu_mulai="{{ \Carbon\Carbon::parse($item->waktu_mulai)->format('Y-m-d\TH:i') }}"
                                                                 data-waktu_selesai="{{ \Carbon\Carbon::parse($item->waktu_selesai)->format('Y-m-d\TH:i') }}"
@@ -126,6 +129,37 @@
                                                                     class="fa-solid fa-trash-can"></i></a></li>
                                                         <li class="delete">
                                                     </ul>
+
+                                                    {{-- <div class="d-flex gap-2">
+                                                        <!-- Edit Badge -->
+                                                        <a href="#"
+                                                            class="badge bg-warning text-dark btn-edit d-inline-flex align-items-center"
+                                                            style="cursor:pointer;" data-id="{{ $item->id }}"
+                                                            data-program_strategis="{{ $item->program_strategis }}"
+                                                            data-nama_kegiatan="{{ $item->nama_kegiatan }}"
+                                                            data-seksi_id="{{ $item->seksi_id }}"
+                                                            data-sub_seksi_id="{{ $item->sub_seksi_id ?? '' }}"
+                                                            data-indikator="{{ $item->indikator }}"
+                                                            data-biaya="{{ $item->biaya }}"
+                                                            data-tempat_kegiatan="{{ $item->tempat_kegiatan }}"
+                                                            data-waktu_mulai="{{ \Carbon\Carbon::parse($item->waktu_mulai)->format('Y-m-d\TH:i') }}"
+                                                            data-waktu_selesai="{{ \Carbon\Carbon::parse($item->waktu_selesai)->format('Y-m-d\TH:i') }}"
+                                                            data-keterangan_waktu="{{ $item->keterangan_waktu ?? '' }}"
+                                                            data-keterangan="{{ $item->keterangan ?? '' }}"
+                                                            data-tahun="{{ $item->tahun }}"
+                                                            data-tahun_renstra="{{ $item->tahun_renstra }}"
+                                                            data-bs-toggle="modal" data-bs-target="#editModal">
+                                                            <i class="fa-regular fa-pen-to-square me-1"></i> Edit
+                                                        </a>
+
+                                                        <!-- Delete Badge -->
+                                                        <a href="#"
+                                                            class="badge bg-danger text-white btn-delete d-inline-flex align-items-center"
+                                                            style="cursor:pointer;">
+                                                            <i class="fa-solid fa-trash-can me-1"></i> Hapus
+                                                        </a>
+                                                    </div> --}}
+
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -183,14 +217,19 @@
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-indikator" class="form-label">Indikator</label>
-                                                        <input type="text" name="indikator" class="form-control"
-                                                            id="input-indikator">
+                                                        <textarea name="indikator" class="form-control" id="input-indikator" rows="2"></textarea>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="input-kelompok-sasaran" class="form-label">Kelompok
+                                                            Sasaran</label>
+                                                        <textarea name="kelompok_sasaran" class="form-control" id="input-biaya" rows="2" required></textarea>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-biaya" class="form-label">Biaya</label>
                                                         <input type="number" name="biaya" class="form-control"
                                                             id="input-biaya" required>
                                                     </div>
+
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-tempat_kegiatan" class="form-label">Tempat
                                                             Kegiatan</label>
@@ -297,10 +336,16 @@
                                                             <textarea name="indikator" class="form-control" id="edit-indikator" rows="2"></textarea>
                                                         </div>
                                                         <div class="col-md-6 mb-3">
+                                                            <label for="edit-kelompok-sasaran" class="form-label">Kelompok
+                                                                Sasaran</label>
+                                                            <textarea name="kelompok_sasaran" class="form-control" id="edit-kelompok-sasaran" required rows="2"></textarea>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
                                                             <label for="edit-biaya" class="form-label">Biaya</label>
                                                             <input type="number" name="biaya" class="form-control"
                                                                 id="edit-biaya" required>
                                                         </div>
+
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-tempat_kegiatan" class="form-label">Tempat
                                                                 Kegiatan</label>
@@ -448,6 +493,7 @@
                 modal.find('#edit-sub_seksi_id').val(btn.data('sub_seksi_id'));
                 modal.find('#edit-indikator').val(btn.data('indikator'));
                 modal.find('#edit-biaya').val(btn.data('biaya'));
+                modal.find('#edit-kelompok-sasaran').val(btn.data('kelompok_sasaran'));
                 modal.find('#edit-tempat_kegiatan').val(btn.data('tempat_kegiatan'));
                 modal.find('#edit-waktu_mulai').val(btn.data('waktu_mulai'));
                 modal.find('#edit-waktu_selesai').val(btn.data('waktu_selesai'));

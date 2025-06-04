@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('Title', 'Sistem Informasi Manajemen Gereja - Dashboard Libang (Penelitian & Pengembangan)')
+@section('title', 'Sistem Informasi Manajemen Gereja - Dashboard Libang (Penelitian & Pengembangan)')
 
 @section('content')
     <div class="page-body">

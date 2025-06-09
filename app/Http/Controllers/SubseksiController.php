@@ -4,39 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Models\Monev;
 use App\Models\Periode_renstra;
+use App\Models\Periode_tahun;
 use App\Models\Program;
 use App\Models\Program_strategis;
 use App\Models\Seksi;
 use App\Models\Sub_seksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SubseksiController extends Controller
 {
     public function index()
     {
-        $countProgram = Program::count();
+        
 
+        $countProgram = Program::count();
         $data = Program::selectRaw('status_usulan, COUNT(*) as total')
             ->groupBy('status_usulan')
             ->get();
         return view('subseksi.dashboard', compact('data'));
     }
     public function usulan_index()
-    {
-
-        $seksiList = Seksi::get();
-        $subSeksiList = Sub_seksi::get();
+    {       
+        // dd(Auth::user()->sub_seksi_id);
+        
+        $seksiList = Seksi::where('id', Auth::user()->seksi_id)->get();
+        $subSeksiList = Sub_seksi::where('id', Auth::user()->sub_seksi_id)->get();
         $listProgramStrategis = Program_strategis::get();
 
         //ambil periode renstra aktif
         $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');  
-        
-        
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun'); 
 
+        $listProgram = Program::where('status_usulan', '1')
+        ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+        ->get();
 
-        $listProgram = Program::where('status_usulan', '1')->get();
-        return view('subseksi.usulan_index', compact('listProgram', 'seksiList', 'subSeksiList','listProgramStrategis','periodeAktif'));
+        return view('subseksi.usulan_index', compact('listProgram', 'seksiList', 'subSeksiList','listProgramStrategis','periodeAktif','tahunAktif'));
     }
 
     public function usulan_pra()
@@ -236,8 +242,32 @@ class SubseksiController extends Controller
         return redirect()->back()->with('success', 'Data MONEV berhasil diperbarui');
     }
 
+    // MANAGE PROFIL AKUN
     public function profile_index()
     {
         return view('subseksi.profile_index');
     }
+
+    // PRINT PDF
+
+    public function printpdf_usulan()
+    {
+        $seksiList = Seksi::where('id', Auth::user()->seksi_id)->get();
+        $subSeksiList = Sub_seksi::where('id', Auth::user()->sub_seksi_id)->get();
+        $listProgramStrategis = Program_strategis::get();
+
+        //ambil periode renstra aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');  
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun'); 
+
+        $listProgram = Program::where('status_usulan', '1')
+        ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+        ->get();
+
+        $pdf = Pdf::loadView('print.subseksi.usulan_subseksi', compact('listProgram'))
+        ->setPaper('A4', 'landscape');
+        return $pdf->stream('Usulan-Kegiatan.pdf');
+    }
+
+    
 }

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Periode_renstra extends Model
 {
     use HasFactory;
-    protected $table = 'Periode_renstra';
+    protected $table = 'periode_renstra';
     protected $fillable = ['nama_periode'];
 }

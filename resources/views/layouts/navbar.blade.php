@@ -100,7 +100,7 @@
                             data-feather="align-center"></i></div>
                 </div>
                 <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
-                    <h4 class="text-primary">Periode Tahun Aktif : {{ $TahunAktif->nama_tahun ?? 'Tidak ada periode aktif.' }}</h4> 
+                    <h4 class="text-primary">Periode Tahun Aktif : {{ $TahunAktif->nama_tahun ?? 'Tidak ada periode aktif.' }} </h4> 
                 </div>
                 <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
                     <ul class="nav-menus">

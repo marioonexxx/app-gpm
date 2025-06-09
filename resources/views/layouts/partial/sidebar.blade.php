@@ -330,7 +330,7 @@
                                             <svg class="fill-icon">
                                                 <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-task') }}">
                                                 </use>
-                                            </svg><span>Program Kerja<label
+                                            </svg><span>Kegiatan<label
                                                     class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label></span></a>
                                         <ul class="sidebar-submenu">
                                             <li>
@@ -372,7 +372,7 @@
                                                 <use
                                                     href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-charts') }}">
                                                 </use>
-                                            </svg><span>Monev Program <label
+                                            </svg><span>Monev Kegiatan <label
                                                         class="badge badge-light-primary">{{ $ProgramApprove ?? 0 }}
                                                     </label></span></a>
                                         <ul class="sidebar-submenu">
@@ -427,6 +427,11 @@
                                                     Renstra<span class="sub-arrow"><i
                                                             class="fa-solid fa-angle-right"></i></span></a>
                                             </li>
+                                            <li>
+                                                <a href="{{ route('sekretaris.manajemen_akun') }}">Akun Seksi & Sub Seksi<span class="sub-arrow"><i
+                                                            class="fa-solid fa-angle-right"></i></span></a>
+                                            </li>
+                                            
                                         </ul>
 
                                     </li>

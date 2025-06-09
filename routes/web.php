@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SekretarisController;
 use App\Http\Controllers\SeksiController;
 use App\Http\Controllers\SubseksiController;
+use App\Http\Middleware\Sekretaris;
 use App\Http\Middleware\Subseksi;
 use Illuminate\Support\Facades\Route;
 
@@ -55,8 +56,8 @@ Route::middleware('auth','verified','Sekretaris')->group(function(){
     
     //program strategis
     Route::get('/sekretaris/program_strategis',[SekretarisController::class, 'program_strategis'])->name('sekretaris.program_strategis');
-    Route::post('/sekretaris/program_strategis',[SekretarisController::class, 'program_stregis_store'])->name('sekretaris.program_strategis_store');
-    Route::put('/sekretaris/program_strategis/{id}',[SekretarisController::class, 'program_strategis_update'])->name('sekretaris.program_strategis_update');
+    Route::post('/sekretaris/program_strategis',[SekretarisController::class, 'program_strategis_store'])->name('sekretaris.program_strategis_store');
+    Route::put('/sekretaris/program_strategis/{id}',[SekretarisController::class, 'program_stretegis_update'])->name('sekretaris.program_strategis_update');
     Route::delete('/sekretaris/program_strategis/{id}',[SekretarisController::class,'program_strategis_destroy'])->name('sekrtaris.program_strategis_delete');
 
     //monev
@@ -64,6 +65,17 @@ Route::middleware('auth','verified','Sekretaris')->group(function(){
     Route::get('/sekretaris/monev_menungguverifikasi',[SekretarisController::class, 'monev_wait_verifikasi'])->name('sekretaris.monev_waitverifikasi');
     Route::get('/sekretaris/monev_terverifikasi',[SekretarisController::class, 'monev_terverifikasi'])->name('sekretaris.monev_terverifikasi');
     Route::get('/sekretaris/monev_revisi',[SekretarisController::class, 'monev_revisi'])->name('sekretaris.monev_revisi');
+
+    //pengaturan akun seksi
+    Route::get('/sekretaris/manajemen_akun',[SekretarisController::class,'manajemen_akun'])->name('sekretaris.manajemen_akun');
+    Route::post('/sekretaris/manajemen_akun',[SekretarisController::class, 'manajemen_akun_store'])->name('sekretaris.manajemen_akun_store');
+    Route::put('/sekretaris/manajemen_akun/{id}',[SekretarisController::class, 'manajemen_akun_update'])->name('sekretaris.manajemen_akun_update');
+    Route::delete('/sekretaris/manajemen_akun_delete/{id}',[SekretarisController::class, 'manajemen_akun_destory'])->name('sekretaris.manajemen_akun_delete');
+
+
+   
+
+
 
 });
 
@@ -92,6 +104,12 @@ Route::middleware('auth','verified','Subseksi')->group(function(){
     //PROFILE
 
     Route::get('/subseksi/profile',[SubseksiController::class, 'profile_index'])->name('subseksi.profile_index');
+
+
+    //PRINT
+
+    Route::get('usulan/print-pdf',[SubseksiController::class, 'printpdf_usulan'])->name('subseksi.printpdf_usulan');
+
    
 
 });

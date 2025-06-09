@@ -19,8 +19,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'bidang_id',
-        'sub_bidang_id',
+        'no_hp',
+        'alamat',
+        'role',
+        'seksi_id',
+        'sub_seksi_id',
         'password',
     ];
 
@@ -47,13 +50,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function bidang()
+    public function seksi()
     {
-        return $this->belongsTo(Bidang::class, 'bidang_id');
+        return $this->belongsTo(Seksi::class, 'seksi_id');
     }
 
-    public function sub_bidang()
+    public function sub_seksi()
     {
-        return $this->belongsTo(Sub_bidang::class, 'sub_bidang_id');
+        return $this->belongsTo(Sub_seksi::class, 'sub_seksi_id');
     }
 }

@@ -25,11 +25,7 @@
                                 <i class="fa fa-plus-circle"></i> Tambah
                             </button>
                         </div>
-                        <div class="card-body">
-                            @if (session('success'))
-                                <div class="alert alert-success">{{ session('success') }}</div>
-                            @endif
-
+                        <div class="card-body">                           
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="programTable">
                                     <thead>
@@ -161,10 +157,41 @@
     </div>
 @endsection
 
+{{-- Sweet Alert Sucess Insert --}}
 @section('script')
+
+    @if (session('success'))
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    buttonsStyling: false, // penting agar customClass aktif
+                    customClass: {
+                        confirmButton: 'btn btn-success'
+                    }
+                });
+            });
+        </script>
+    @endif
+
+
     <script>
         $(document).ready(function() {
-            $('#programTable').DataTable();
+            // Cegah reinitialisasi
+            if (!$.fn.DataTable.isDataTable('#programTable')) {
+                $('#programTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    info: true
+                });
+            }
         });
-    </script>
+    </script>   
+
+
 @endsection
+

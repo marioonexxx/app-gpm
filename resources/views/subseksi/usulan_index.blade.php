@@ -29,12 +29,15 @@
                         <div class="card-header d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
                                 <h5>Tabel Usulan Kegiatan</h5>
-                                
+
                             </div>
                             <div>
+                                <a href="{{ route('subseksi.printpdf_usulan') }}" class="btn btn-danger" target="_blank">
+                                    <i class="fas fa-file-pdf me-1"></i> Print
+                                </a>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputModal">
-                                    <i class="fas fa-plus-circle me-1"></i> Tambah Usulan
+                                    <i class="fas fa-plus-circle me-1"></i> Add
                                 </button>
                             </div>
                         </div>
@@ -114,8 +117,8 @@
                                                                 data-biaya="{{ $item->biaya }}"
                                                                 data-kelompok_sasaran="{{ $item->kelompok_sasaran }}"
                                                                 data-tempat_kegiatan="{{ $item->tempat_kegiatan }}"
-                                                                data-waktu_mulai="{{ \Carbon\Carbon::parse($item->waktu_mulai)->format('Y-m-d\TH:i') }}"
-                                                                data-waktu_selesai="{{ \Carbon\Carbon::parse($item->waktu_selesai)->format('Y-m-d\TH:i') }}"
+                                                                data-waktu_mulai="{{ \Carbon\Carbon::parse($item->waktu_mulai)->format('Y-m-d') }}"
+                                                                data-waktu_selesai="{{ \Carbon\Carbon::parse($item->waktu_selesai)->format('Y-m-d') }}"
                                                                 data-keterangan_waktu="{{ $item->keterangan_waktu ?? '' }}"
                                                                 data-keterangan="{{ $item->keterangan ?? '' }}"
                                                                 data-tahun="{{ $item->tahun }}"
@@ -175,7 +178,7 @@
                                                         <label for="input-seksi_id" class="form-label">Seksi</label>
                                                         <select name="seksi_id" id="input-seksi_id" class="form-select"
                                                             required>
-                                                            <option value="">-- Pilih Seksi --</option>
+
                                                             @foreach ($seksiList as $seksi)
                                                                 <option value="{{ $seksi->id }}">
                                                                     {{ $seksi->nama_seksi }}</option>
@@ -187,7 +190,7 @@
                                                             Seksi</label>
                                                         <select name="sub_seksi_id" id="input-sub_seksi_id"
                                                             class="form-select">
-                                                            <option value="">-- Pilih Sub Seksi --</option>
+
                                                             @foreach ($subSeksiList as $subSeksi)
                                                                 <option value="{{ $subSeksi->id }}">
                                                                     {{ $subSeksi->nama_sub_seksi }}</option>
@@ -218,14 +221,14 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-waktu_mulai" class="form-label">Waktu
                                                             Mulai</label>
-                                                        <input type="date" name="waktu_mulai"
-                                                            class="form-control" id="input-waktu_mulai" required>
+                                                        <input type="date" name="waktu_mulai" class="form-control"
+                                                            id="input-waktu_mulai" required>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-waktu_selesai" class="form-label">Waktu
                                                             Selesai</label>
-                                                        <input type="date" name="waktu_selesai"
-                                                            class="form-control" id="input-waktu_selesai" required>
+                                                        <input type="date" name="waktu_selesai" class="form-control"
+                                                            id="input-waktu_selesai" required>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-keterangan_waktu" class="form-label">Keterangan
@@ -240,12 +243,15 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-tahun" class="form-label">Tahun</label>
                                                         <input type="number" name="tahun" class="form-control"
-                                                            id="input-tahun" required>
+                                                            value="{{ $tahunAktif }}" id="input-tahun" required
+                                                            readonly>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-tahun_renstra" class="form-label">Periode
                                                             Renstra</label>
-                                                        <input type="text" name="tahun_renstra" class="form-control" id="input-tahun_renstra" value="{{ $periodeAktif }}" disabled>
+                                                        <input type="text" name="tahun_renstra" class="form-control"
+                                                            id="input-tahun_renstra" value="{{ $periodeAktif }}"
+                                                            readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -277,16 +283,17 @@
                                                     <div class="row">
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-program_strategis" class="form-label">Program
-                                                                Strategis</label>                                                            
-                                                        <select name="program_strategis" id="edit-program_strategis"
-                                                            class="form-select" required>
-                                                            <option value="">-- Pilih Program Strategis --</option>
-                                                            @foreach ($listProgramStrategis as $list)
-                                                                <option value="{{ $list->nama_program }}">
-                                                                    {{ $list->nama_program }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        
+                                                                Strategis</label>
+                                                            <select name="program_strategis" id="edit-program_strategis"
+                                                                class="form-select" required>
+                                                                <option value="">-- Pilih Program Strategis --
+                                                                </option>
+                                                                @foreach ($listProgramStrategis as $list)
+                                                                    <option value="{{ $list->nama_program }}">
+                                                                        {{ $list->nama_program }}</option>
+                                                                @endforeach
+                                                            </select>
+
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-nama_kegiatan" class="form-label">Nama
@@ -297,7 +304,7 @@
                                                             <label for="edit-seksi_id" class="form-label">Seksi</label>
                                                             <select name="seksi_id" id="edit-seksi_id"
                                                                 class="form-select" required>
-                                                                <option value="">-- Pilih Seksi --</option>
+
                                                                 @foreach ($seksiList as $seksi)
                                                                     <option value="{{ $seksi->id }}">
                                                                         {{ $seksi->nama_seksi }}</option>
@@ -309,7 +316,7 @@
                                                                 Seksi</label>
                                                             <select name="sub_seksi_id" id="edit-sub_seksi_id"
                                                                 class="form-select">
-                                                                <option value="">-- Pilih Sub Seksi --</option>
+
                                                                 @foreach ($subSeksiList as $subSeksi)
                                                                     <option value="{{ $subSeksi->id }}">
                                                                         {{ $subSeksi->nama_sub_seksi }}</option>
@@ -341,8 +348,8 @@
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-waktu_mulai" class="form-label">Waktu
                                                                 Mulai</label>
-                                                            <input type="date" name="waktu_mulai"
-                                                                class="form-control" id="edit-waktu_mulai" required>
+                                                            <input type="date" name="waktu_mulai" class="form-control"
+                                                                id="edit-waktu_mulai" required>
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-waktu_selesai" class="form-label">Waktu
@@ -368,7 +375,9 @@
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-tahun_renstra" class="form-label">Periode
                                                                 Renstra</label>
-                                                            <input type="text" name="tahun_renstra"  class="form-control" id="edit-tahun_renstra" required disabled>
+                                                            <input type="text" name="tahun_renstra"
+                                                                class="form-control" id="edit-tahun_renstra" required
+                                                                readonly>
                                                         </div>
                                                     </div>
                                                 </div>

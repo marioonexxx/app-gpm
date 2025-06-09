@@ -9,6 +9,6 @@ class Seksi extends Model
 {
     use HasFactory;
 
-    protected $table = 'Seksi';
+    protected $table = 'seksi';
     protected $fillable = ['nama_seksi'];
 }

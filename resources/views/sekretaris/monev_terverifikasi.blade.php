@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Sub Seksi Melakukan Monitoring dan Evaluasi Kegiatan')
+@section('title', 'Sistem Informasi Manajemen Gereja - Sekretaris Monitoring dan Evaluasi Program Yang Terverifikasi')
 
 @section('content')
     <div class="page-body">
@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Sub Seksi - Menunggu Verifikasi Hasil Monev</h3>
+                        <h3>Sekretaris Monitoring dan Evaluasi Program Yang Terverifikasi</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -28,7 +28,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <h5>Tabel Kegiatan Strategis</h5>
+                                <h5>Data Tabel Program Kegiatan Strategis</h5>
                                 
                             </div>
 
@@ -57,6 +57,7 @@
                                             <th>Rencana Tindak Lanjut</th>
                                             <th>Laporan</th>
                                             <th>Status Monev</th>
+                                            {{-- <th>Status Revisi (Jika Ada)</th> --}}
                                             
                                         </tr>
                                     </thead>
@@ -91,17 +92,18 @@
                                                         <span class="badge rounded-pill badge-primary">Menunggu<br>Laporan
                                                         </span>
                                                     @elseif ($item->program->status_monev == '2')
-                                                        <span class="badge rounded-pill badge-warning">Menunggu<br>
-                                                            Verifikasi Seksi</span>
+                                                        <span class="badge rounded-pill badge-warning">Menunggu
+                                                            Verifikasi</span>
                                                     @elseif ($item->program->status_monev == '3')
                                                         <span class="badge rounded-pill badge-success">Laporan Monev
                                                             Terverifikasi</span>
-                                                    @elseif ($item->program->status_monev == '4')
-                                                        <span class="badge rounded-pill badge-success">Segera Revisi Laporan</span>
                                                     @else
                                                         <span class="badge rounded-pill badge-danger">Undefined</span>
                                                     @endif
                                                 </td>
+                                                {{-- <td>
+                                                    {{ $item->monev_revisi }}
+                                                </td> --}}
                                                 
                                             </tr>
                                         @endforeach
@@ -130,23 +132,7 @@
 {{-- Sweet Alert Sucess Insert --}}
 @section('script')
 
-    @if (session('success'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: '{{ session('success') }}',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    buttonsStyling: false, // penting agar customClass aktif
-                    customClass: {
-                        confirmButton: 'btn btn-success'
-                    }
-                });
-            });
-        </script>
-    @endif
-
+   
 
     <script>
         $(document).ready(function() {

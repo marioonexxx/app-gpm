@@ -31,10 +31,40 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth','verified','Sekretaris')->group(function(){
     Route::get('/sekretaris/dashboard',[SekretarisController::class, 'index'])->name('sekretaris.dashboard');
 
-    Route::get('/sekretaris/program_index',[SekretarisController::class, 'program_index'])->name('program_index');
-
+    Route::get('/sekretaris/program_index',[SekretarisController::class, 'program_index'])->name('sekretaris.program_index');
+    Route::get('/sekretaris/program_prasidang',[SekretarisController::class, 'program_prasidang_index'])->name('sekretaris.program_prasidang_index');
+    Route::get('/sekretaris/program_penetapan',[SekretarisController::class, 'program_penetapan_index'])->name('sekretaris.program_penetapan_index');
+    Route::get('/sekretaris/program_ditolak',[SekretarisController::class, 'program_ditolak_index'])->name('sekretaris.program_ditolak_index');
+    
     //profile
     Route::get('/sekretaris/profile',[SekretarisController::class, 'profile_index'])->name('sekretaris.profile_index');
+
+    //renstra
+    Route::get('/sekretaris/periode_renstra',[SekretarisController::class, 'pengaturan_periode_renstra'])->name('sekretaris.pengaturan_periode_renstra');
+    Route::post('/sekretaris/periode_renstra',[SekretarisController::class, 'periode_renstra_store'])->name('sekretaris.periode_renstra_store');
+    Route::put('/sekretaris/periode_renstra/{id}',[SekretarisController::class, 'periode_renstra_update'])->name('sekretaris.periode_renstra_update');
+    Route::delete('/sekretaris/periode_renstra/{id}',[SekretarisController::class, 'periode_renstra_destroy'])->name('sekretaris.periode_renstra_delete');
+    Route::post('/sekretaris/periode_renstra/{id}/aktif',[SekretarisController::class, 'periode_renstra_aktif'])->name('sekretaris.periode_renstra_aktif');
+    
+    //tahun
+    Route::get('/sekretaris/periode_tahun',[SekretarisController::class, 'pengaturan_periode_tahun'])->name('sekretaris.pengaturan_periode_tahun');
+    Route::post('/sekretaris/periode_tahun',[SekretarisController::class, 'periode_tahun_store'])->name('sekretaris.periode_tahun_store');
+    Route::put('/sekretaris/periode_tahun/{id}',[SekretarisController::class, 'periode_tahun_update'])->name('sekretaris.periode_tahun_update');
+    Route::delete('/sekretaris/periode_tahun/{id}',[SekretarisController::class, 'periode_tahun_destroy'])->name('sekretaris.periode_tahun_delete');
+    Route::post('/sekretaris/periode_tahun/{id}/aktif',[SekretarisController::class, 'periode_tahun_aktif'])->name('sekretaris.periode_tahun_aktif');
+    
+    //program strategis
+    Route::get('/sekretaris/program_strategis',[SekretarisController::class, 'program_strategis'])->name('sekretaris.program_strategis');
+    Route::post('/sekretaris/program_strategis',[SekretarisController::class, 'program_stregis_store'])->name('sekretaris.program_strategis_store');
+    Route::put('/sekretaris/program_strategis/{id}',[SekretarisController::class, 'program_strategis_update'])->name('sekretaris.program_strategis_update');
+    Route::delete('/sekretaris/program_strategis/{id}',[SekretarisController::class,'program_strategis_destroy'])->name('sekrtaris.program_strategis_delete');
+
+    //monev
+    Route::get('/sekretatris/monev_index',[SekretarisController::class, 'monev_index'])->name('sekretaris.monev_index');
+    Route::get('/sekretaris/monev_menungguverifikasi',[SekretarisController::class, 'monev_wait_verifikasi'])->name('sekretaris.monev_waitverifikasi');
+    Route::get('/sekretaris/monev_terverifikasi',[SekretarisController::class, 'monev_terverifikasi'])->name('sekretaris.monev_terverifikasi');
+    Route::get('/sekretaris/monev_revisi',[SekretarisController::class, 'monev_revisi'])->name('sekretaris.monev_revisi');
+
 });
 
 

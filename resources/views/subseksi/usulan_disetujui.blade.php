@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Jemaat GPM Halong Anugerah')
+@section('title', 'Sistem Informasi Manajemen Gereja - Kegiatan Sub Seksi Hasil Penetapan Sidang Jemaat')
 
 @section('content')
     <div class="page-body">
@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Subseksi - Program yang telah disetujui di Pra Sidang Jemaat</h3>
+                        <h3>Kegiatan Sub Seksi Hasil Penetapan Sidang Jemaat</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Program Pra Sidang</li>
+                            <li class="breadcrumb-item active">Penetapan Kegiatan Hasil Sidang Jemaat</li>
                         </ol>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Daftar Program.</h5>
-                            <p class="f-m-light mt-1">Program yang dijalankan dari seksi.</p>
+                            <h5>Tabel Usulan Kegiatan Sub Seksi Hasil Sidang Jemaat</h5>
+                            
                         </div>
                         <div class="card-body">
 

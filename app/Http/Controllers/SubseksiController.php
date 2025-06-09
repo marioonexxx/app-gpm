@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Monev;
+use App\Models\Periode_renstra;
 use App\Models\Program;
+use App\Models\Program_strategis;
 use App\Models\Seksi;
 use App\Models\Sub_seksi;
 use Illuminate\Http\Request;
@@ -13,7 +15,7 @@ class SubseksiController extends Controller
 {
     public function index()
     {
-         $countProgram = Program::count();
+        $countProgram = Program::count();
 
         $data = Program::selectRaw('status_usulan, COUNT(*) as total')
             ->groupBy('status_usulan')
@@ -25,9 +27,16 @@ class SubseksiController extends Controller
 
         $seksiList = Seksi::get();
         $subSeksiList = Sub_seksi::get();
+        $listProgramStrategis = Program_strategis::get();
+
+        //ambil periode renstra aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');  
+        
+        
+
 
         $listProgram = Program::where('status_usulan', '1')->get();
-        return view('subseksi.usulan_index', compact('listProgram', 'seksiList', 'subSeksiList'));
+        return view('subseksi.usulan_index', compact('listProgram', 'seksiList', 'subSeksiList','listProgramStrategis','periodeAktif'));
     }
 
     public function usulan_pra()

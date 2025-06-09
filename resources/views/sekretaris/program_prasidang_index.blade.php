@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Usulan Kegiatan Sub Seksi di Tahapan Pra Sidang Jemaat')
+@section('title', 'Sistem Informasi Manajemen Gereja - Usulan Program Subseksi')
 
 @section('content')
     <div class="page-body">
@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Usulan Kegiatan Sub Seksi di Tahapan Pra Sidang Jemaat</h3>
+                        <h3>Program Pra Sidang Jemaat</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Pra Sidang - Kegiatan</li>
+                            <li class="breadcrumb-item active">Program Pra Sidang</li>
                         </ol>
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <h5>Tabel Kegiatan - Pra Sidang Jemaat</h5>
-                                
+                                <h5>Usulan Program</h5>
+                                <p class="f-m-light mt-1 mb-0">Silahkan melengkapi data usulan program dari seksi.</p>
                             </div>
 
                         </div>

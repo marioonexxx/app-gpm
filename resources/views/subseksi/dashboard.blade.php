@@ -15,7 +15,7 @@
                                         <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Sample Page</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
                 <div class="col-xl-8">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Statistik Program</h5>
-                            <p class="f-m-light mt-1">Data statistik program yang ditampilkan dalam berbagai chart/diagram.</p>
+                            <h5>Statistik Kegiatan</h5>
+                            <p class="f-m-light mt-1">Data statistik kegiatan yang ditampilkan dalam berbagai chart/diagram.</p>
                         </div>
                         <div class="card-body">
                             <div class="row">

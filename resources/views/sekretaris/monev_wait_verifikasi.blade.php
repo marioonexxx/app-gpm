@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Sub Seksi Melakukan Monitoring dan Evaluasi Kegiatan')
+@section('title', 'Sistem Informasi Manajemen Gereja - Sekretaris Monitoring dan Evaluasi Program Yang Sedang Diverifikasi.')
 
 @section('content')
     <div class="page-body">
@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Sub Seksi - Menunggu Verifikasi Hasil Monev</h3>
+                        <h3>Sekretaris Monitoring dan Evaluasi Program Yang Sedang Diverifikasi</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Monev Terverifikasi</li>
+                            <li class="breadcrumb-item active">Monitoring Verifikasi</li>
                         </ol>
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <h5>Tabel Kegiatan Strategis</h5>
-                                
+                                <h5>Data Program Kegiatan Strategis</h5>
+                                <p class="f-m-light mt-1 mb-0">Saat ini input laporan monev sedang diperiksa oleh Seksi terkait.</p>
                             </div>
 
                         </div>
@@ -57,7 +57,7 @@
                                             <th>Rencana Tindak Lanjut</th>
                                             <th>Laporan</th>
                                             <th>Status Monev</th>
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -102,7 +102,7 @@
                                                         <span class="badge rounded-pill badge-danger">Undefined</span>
                                                     @endif
                                                 </td>
-                                                
+
                                             </tr>
                                         @endforeach
                                     </tbody>

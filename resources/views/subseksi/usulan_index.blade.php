@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Usulan Program Subseksi')
+@section('title', 'Sistem Informasi Manajemen Gereja - Sub Seksi Melakukan Usulan Kegiatan')
 
 @section('content')
     <div class="page-body">
@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Sub Seksi Mengsulkan Program</h3>
+                        <h3>Sub Seksi Mengsulkan Kegiatan</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Usulan Program</li>
+                            <li class="breadcrumb-item active">Usulan Kegiatan</li>
                         </ol>
                     </div>
                 </div>
@@ -28,13 +28,13 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-start flex-wrap gap-2">
                             <div>
-                                <h5>Usulan Program</h5>
-                                <p class="f-m-light mt-1 mb-0">Silahkan melengkapi data usulan program dari seksi.</p>
+                                <h5>Tabel Usulan Kegiatan</h5>
+                                
                             </div>
                             <div>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#inputModal">
-                                    <i class="fas fa-plus-circle me-1"></i> Add Program
+                                    <i class="fas fa-plus-circle me-1"></i> Tambah Usulan
                                 </button>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                                 <td>{{ $item->nama_kegiatan }}</td>
                                                 <td>{{ $item->seksi->nama_seksi ?? '-' }}</td>
                                                 <td>{{ $item->sub_seksi->nama_sub_seksi ?? '-' }}</td>
-                                                <td>{{ $item->indikator }}</td>                                                
+                                                <td>{{ $item->indikator }}</td>
                                                 <td>{{ $item->kelompok_sasaran }}</td>
                                                 <td>Rp{{ number_format($item->biaya, 0, ',', '.') }}</td>
                                                 <td>{{ $item->tempat_kegiatan }}</td>
@@ -129,37 +129,6 @@
                                                                     class="fa-solid fa-trash-can"></i></a></li>
                                                         <li class="delete">
                                                     </ul>
-
-                                                    {{-- <div class="d-flex gap-2">
-                                                        <!-- Edit Badge -->
-                                                        <a href="#"
-                                                            class="badge bg-warning text-dark btn-edit d-inline-flex align-items-center"
-                                                            style="cursor:pointer;" data-id="{{ $item->id }}"
-                                                            data-program_strategis="{{ $item->program_strategis }}"
-                                                            data-nama_kegiatan="{{ $item->nama_kegiatan }}"
-                                                            data-seksi_id="{{ $item->seksi_id }}"
-                                                            data-sub_seksi_id="{{ $item->sub_seksi_id ?? '' }}"
-                                                            data-indikator="{{ $item->indikator }}"
-                                                            data-biaya="{{ $item->biaya }}"
-                                                            data-tempat_kegiatan="{{ $item->tempat_kegiatan }}"
-                                                            data-waktu_mulai="{{ \Carbon\Carbon::parse($item->waktu_mulai)->format('Y-m-d\TH:i') }}"
-                                                            data-waktu_selesai="{{ \Carbon\Carbon::parse($item->waktu_selesai)->format('Y-m-d\TH:i') }}"
-                                                            data-keterangan_waktu="{{ $item->keterangan_waktu ?? '' }}"
-                                                            data-keterangan="{{ $item->keterangan ?? '' }}"
-                                                            data-tahun="{{ $item->tahun }}"
-                                                            data-tahun_renstra="{{ $item->tahun_renstra }}"
-                                                            data-bs-toggle="modal" data-bs-target="#editModal">
-                                                            <i class="fa-regular fa-pen-to-square me-1"></i> Edit
-                                                        </a>
-
-                                                        <!-- Delete Badge -->
-                                                        <a href="#"
-                                                            class="badge bg-danger text-white btn-delete d-inline-flex align-items-center"
-                                                            style="cursor:pointer;">
-                                                            <i class="fa-solid fa-trash-can me-1"></i> Hapus
-                                                        </a>
-                                                    </div> --}}
-
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -185,7 +154,17 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-program_strategis" class="form-label">Program
                                                             Strategis</label>
-                                                        <textarea rows="2" name="program_strategis" class="form-control" id="input-program_strategis" required></textarea>
+                                                        {{-- <textarea rows="2" name="program_strategis" class="form-control" id="input-program_strategis" required></textarea> --}}
+                                                        <select name="program_strategis" id="input-program_strategis"
+                                                            class="form-select" required>
+                                                            <option value="">-- Pilih Program Strategis --</option>
+                                                            @foreach ($listProgramStrategis as $list)
+                                                                <option value="{{ $list->nama_program }}">
+                                                                    {{ $list->nama_program }}</option>
+                                                            @endforeach
+                                                        </select>
+
+
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-nama_kegiatan" class="form-label">Nama
@@ -239,13 +218,13 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-waktu_mulai" class="form-label">Waktu
                                                             Mulai</label>
-                                                        <input type="datetime-local" name="waktu_mulai"
+                                                        <input type="date" name="waktu_mulai"
                                                             class="form-control" id="input-waktu_mulai" required>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-waktu_selesai" class="form-label">Waktu
                                                             Selesai</label>
-                                                        <input type="datetime-local" name="waktu_selesai"
+                                                        <input type="date" name="waktu_selesai"
                                                             class="form-control" id="input-waktu_selesai" required>
                                                     </div>
                                                     <div class="col-md-6 mb-3">
@@ -266,8 +245,7 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label for="input-tahun_renstra" class="form-label">Periode
                                                             Renstra</label>
-                                                        <input type="text" name="tahun_renstra" class="form-control"
-                                                            id="input-tahun_renstra" required>
+                                                        <input type="text" name="tahun_renstra" class="form-control" id="input-tahun_renstra" value="{{ $periodeAktif }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -299,8 +277,16 @@
                                                     <div class="row">
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-program_strategis" class="form-label">Program
-                                                                Strategis</label>
-                                                            <textarea name="program_strategis" class="form-control" id="edit-program_strategis" rows="2" required></textarea>
+                                                                Strategis</label>                                                            
+                                                        <select name="program_strategis" id="edit-program_strategis"
+                                                            class="form-select" required>
+                                                            <option value="">-- Pilih Program Strategis --</option>
+                                                            @foreach ($listProgramStrategis as $list)
+                                                                <option value="{{ $list->nama_program }}">
+                                                                    {{ $list->nama_program }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-nama_kegiatan" class="form-label">Nama
@@ -355,13 +341,13 @@
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-waktu_mulai" class="form-label">Waktu
                                                                 Mulai</label>
-                                                            <input type="datetime-local" name="waktu_mulai"
+                                                            <input type="date" name="waktu_mulai"
                                                                 class="form-control" id="edit-waktu_mulai" required>
                                                         </div>
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-waktu_selesai" class="form-label">Waktu
                                                                 Selesai</label>
-                                                            <input type="datetime-local" name="waktu_selesai"
+                                                            <input type="date" name="waktu_selesai"
                                                                 class="form-control" id="edit-waktu_selesai" required>
                                                         </div>
                                                         <div class="col-md-6 mb-3">
@@ -382,8 +368,7 @@
                                                         <div class="col-md-6 mb-3">
                                                             <label for="edit-tahun_renstra" class="form-label">Periode
                                                                 Renstra</label>
-                                                            <input type="text" name="tahun_renstra"
-                                                                class="form-control" id="edit-tahun_renstra" required>
+                                                            <input type="text" name="tahun_renstra"  class="form-control" id="edit-tahun_renstra" required disabled>
                                                         </div>
                                                     </div>
                                                 </div>

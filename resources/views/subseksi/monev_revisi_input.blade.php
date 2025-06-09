@@ -110,7 +110,7 @@
                                                 <td>
                                                     <ul class="action">
                                                         <li class="edit">
-                                                            <a href="#" class="badge bg-primary text-white"
+                                                            <a href="#" class="badge text-white"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editModal{{ $item->id }}">
                                                                 <i class="fa-regular fa-pen-to-square"></i>

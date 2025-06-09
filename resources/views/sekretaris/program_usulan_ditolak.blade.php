@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Usulan Kegiatan Sub Seksi Yang Ditolak')
+@section('title', 'Sistem Informasi Manajemen Gereja - Jemaat GPM Halong Anugerah')
 
 @section('content')
     <div class="page-body">
@@ -7,7 +7,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Usulan Kegiatan Sub Seksi Yang Ditolak</h3>
+                        <h3>Sekretaris - Arsip program yang ditolak</h3>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Kegiatan Yang Ditolak</li>
+                            <li class="breadcrumb-item active">Arsip usulan</li>
                         </ol>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Tabel Kegiatan Sub Seksi Yang Ditolak</h5>
-                           
+                            <h5>Daftar Program</h5>
+                            <p class="f-m-light mt-1">Program yang dijalankan dari seksi</p>
                         </div>
                         <div class="card-body">
 
@@ -251,25 +251,7 @@
 
 @section('script')
 
-    {{-- Sweetalert --}}
-    @if (session('success'))
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: '{{ session('success') }}',
-                    icon: 'success',
-                    confirmButtonText: 'OK',
-                    buttonsStyling: false, // penting agar customClass aktif
-                    customClass: {
-                        confirmButton: 'btn btn-success'
-                    }
-                });
-            });
-        </script>
-    @endif
-
-    <script>
+      <script>
         $(document).ready(function() {
             // Cegah reinitialisasi
             if (!$.fn.DataTable.isDataTable('#programTable')) {

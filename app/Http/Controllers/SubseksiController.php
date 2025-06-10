@@ -19,47 +19,81 @@ class SubseksiController extends Controller
     public function index()
     {
         
-
-        $countProgram = Program::count();
-        $data = Program::selectRaw('status_usulan, COUNT(*) as total')
+        $dataProgram = Program::selectRaw('status_usulan, COUNT(*) as total')
+            ->where('seksi_id', Auth::user()->seksi_id)
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
             ->groupBy('status_usulan')
             ->get();
-        return view('subseksi.dashboard', compact('data'));
+
+
+        $dataMonev = Program::selectRaw('status_monev, COUNT(*) as total')
+            ->groupBy('status_monev')
+            ->where('seksi_id', Auth::user()->seksi_id)
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->get();
+
+        return view('subseksi.dashboard', compact('dataProgram', 'dataMonev'));
     }
     public function usulan_index()
-    {       
+    {
         // dd(Auth::user()->sub_seksi_id);
-        
+
         $seksiList = Seksi::where('id', Auth::user()->seksi_id)->get();
         $subSeksiList = Sub_seksi::where('id', Auth::user()->sub_seksi_id)->get();
         $listProgramStrategis = Program_strategis::get();
 
         //ambil periode renstra aktif
-        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');  
-        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun'); 
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
 
         $listProgram = Program::where('status_usulan', '1')
-        ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
-        ->get();
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
 
-        return view('subseksi.usulan_index', compact('listProgram', 'seksiList', 'subSeksiList','listProgramStrategis','periodeAktif','tahunAktif'));
+        return view('subseksi.usulan_index', compact('listProgram', 'seksiList', 'subSeksiList', 'listProgramStrategis', 'periodeAktif', 'tahunAktif'));
     }
 
     public function usulan_pra()
     {
-        $listProgram = Program::where('status_usulan', '2')->get();
+        //ambil periode renstra aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
+
+        $listProgram = Program::where('status_usulan', '2')
+         ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
         return view('subseksi.usulan_prasidang', compact('listProgram'));
     }
 
     public function usulan_approve()
     {
-        $listProgram = Program::where('status_usulan', '3')->get();
+        //ambil periode renstra aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
+
+        $listProgram = Program::where('status_usulan', '3')       
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
         return view('subseksi.usulan_disetujui', compact('listProgram'));
     }
 
     public function usulan_rejected()
     {
-        $listProgram = Program::where('status_usulan', '4')->get();
+        //ambil periode renstra aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
+        
+        $listProgram = Program::where('status_usulan', '4')
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
         return view('subseksi.usulan_ditolak', compact('listProgram'));
     }
 
@@ -257,17 +291,15 @@ class SubseksiController extends Controller
         $listProgramStrategis = Program_strategis::get();
 
         //ambil periode renstra aktif
-        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');  
-        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun'); 
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
 
         $listProgram = Program::where('status_usulan', '1')
-        ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
-        ->get();
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->get();
 
         $pdf = Pdf::loadView('print.subseksi.usulan_subseksi', compact('listProgram'))
-        ->setPaper('A4', 'landscape');
+            ->setPaper('A4', 'landscape');
         return $pdf->stream('Usulan-Kegiatan.pdf');
     }
-
-    
 }

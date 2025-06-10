@@ -1,7 +1,7 @@
             <!-- Page Sidebar Start-->
             <div class="sidebar-wrapper" data-sidebar-layout="stroke-svg">
                 <div>
-                    <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light"
+                    <div class="logo-wrapper"><a href="#"><img class="img-fluid for-light"
                                 src="{{ asset('cuba/assets/images/logo/logo.png') }}" alt=""><img
                                 class="img-fluid for-dark" src="{{ asset('cuba/assets/images/logo/logo_dark.png') }}"
                                 alt=""></a>
@@ -9,7 +9,7 @@
                         <div class="toggle-sidebar"><i class="status_toggle middle sidebar-toggle" data-feather="grid">
                             </i></div>
                     </div>
-                    <div class="logo-icon-wrapper"><a href="index.html"><img class="img-fluid"
+                    <div class="logo-icon-wrapper"><a href="#"><img class="img-fluid"
                                 src="{{ asset('cuba/assets/images/logo/logo-icon.png') }}" alt=""></a></div>
                     <nav class="sidebar-main">
                         <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
@@ -31,7 +31,7 @@
                                     </li>
                                     <li class="sidebar-list"><i class="fa-solid fa-thumbtack"></i>
                                         <a class="sidebar-link sidebar-title link-nav"
-                                            href="{{ route('subseksi.dashboard') }}" target="_blank">
+                                            href="{{ route('subseksi.dashboard') }}">
                                             <svg class="stroke-icon">
                                                 <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-home') }}">
                                                 </use>
@@ -52,30 +52,30 @@
                                                 <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#fill-task') }}">
                                                 </use>
                                             </svg><span>Kegiatan<label
-                                                    class="badge badge-light-primary">{{ $ProgramCount ?? 0 }}</label></span></a>
+                                                    class="badge badge-light-primary">{{ $ProgramSubseksiCount ?? 0 }}</label></span></a>
                                         <ul class="sidebar-submenu">
                                             <li>
                                                 <a href="{{ route('subseksi.usulan') }}">Tahap Usulan
                                                     <span
-                                                        class="badge badge-light-secondary float-end">{{ $ProgramPending ?? 0 }}</span>
+                                                        class="badge badge-light-secondary float-end">{{ $ProgramSubseksiPending ?? 0 }}</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('subseksi.usulan_prasidang') }}">Tahap Pra Sidang
                                                     <span
-                                                        class="badge badge-light-secondary float-end">{{ $ProgramPrasidang ?? 0 }}</span>
+                                                        class="badge badge-light-secondary float-end">{{ $ProgramSubseksiPrasidang ?? 0 }}</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('subseksi.usulan_disetujui') }}">Tahap Penetapan
                                                     <span
-                                                        class="badge badge-light-secondary float-end">{{ $ProgramApprove ?? 0 }}</span>
+                                                        class="badge badge-light-secondary float-end">{{ $ProgramSubseksiApprove ?? 0 }}</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="{{ route('subseksi.usulan_ditolak') }}">Program Ditolak
                                                     <span
-                                                        class="badge badge-light-secondary float-end">{{ $ProgramReject ?? 0 }}</span>
+                                                        class="badge badge-light-secondary float-end">{{ $ProgramSubseksiReject ?? 0 }}</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -93,16 +93,28 @@
                                             </svg><span>Monev Kegiatan</span></a>
                                         <ul class="sidebar-submenu">
                                             <li>
-                                                <a href="{{ route('subseksi.monev') }}">Input Monev </a>
+                                                <a href="{{ route('subseksi.monev') }}">Input Monev
+                                                    <span
+                                                        class="badge badge-light-secondary float-end">{{ $MonevSubseksiWaitInput ?? 0 }}</span>
+                                                </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('subseksi.monev_waiting') }}">Menunggu Verifikasi</a>
+                                                <a href="{{ route('subseksi.monev_waiting') }}">Menunggu Verifikasi
+                                                    <span
+                                                        class="badge badge-light-secondary float-end">{{ $MonevSubseksiWaitVerifikasi ?? 0 }}</span>
+                                                </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('subseksi.monev_approve') }}">Sudah Verifikasi</a>
+                                                <a href="{{ route('subseksi.monev_approve') }}">Sudah Verifikasi
+                                                    <span
+                                                        class="badge badge-light-secondary float-end">{{ $MonevSubseksiVerifikasiAccept ?? 0 }}</span>
+                                                </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('subseksi.monev_revisi_input') }}">Revisi Laporan</a>
+                                                <a href="{{ route('subseksi.monev_revisi_input') }}">Revisi Laporan
+                                                    <span
+                                                        class="badge badge-light-secondary float-end">{{ $MonevSubseksiRevisi ?? 0 }}</span>
+                                                </a>
                                             </li>
                                         </ul>
                                     </li>

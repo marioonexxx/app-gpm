@@ -92,7 +92,7 @@
                     </div>
                 </form>
                 <div class="header-logo-wrapper col-auto p-0">
-                    <div class="logo-wrapper"><a href="index.html"><img class="img-fluid for-light"
+                    <div class="logo-wrapper"><a href="#"><img class="img-fluid for-light"
                                 src="{{ asset('cuba/assets/images/logo/logo.png') }}" alt=""><img
                                 class="img-fluid for-dark" src="{{ asset('cuba/assets/images/logo/logo_dark.png') }}"
                                 alt=""></a></div>
@@ -100,11 +100,12 @@
                             data-feather="align-center"></i></div>
                 </div>
                 <div class="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
-                    <h4 class="text-primary">Periode Tahun Aktif : {{ $TahunAktif->nama_tahun ?? 'Tidak ada periode aktif.' }} </h4> 
+                    <h4 class="text-primary">Periode Tahun Aktif :
+                        {{ $TahunAktif->nama_tahun ?? 'Tidak ada periode aktif.' }} </h4>
                 </div>
                 <div class="nav-right col-xxl-7 col-xl-6 col-md-7 col-8 pull-right right-header p-0 ms-auto">
                     <ul class="nav-menus">
-                        <li class="language-nav">
+                        {{-- <li class="language-nav">
                             <div class="translate_wrapper">
                                 <div class="current_lang">
                                     <div class="lang"><i class="flag-icon flag-icon-us"></i><span
@@ -128,7 +129,7 @@
                                             class="lang-txt">لعربية <span> (ae)</span></span></div>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
                         <li class="fullscreen-body"> <span>
                                 <svg id="maximize-screen">
                                     <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#full-screen') }}"></use>
@@ -137,7 +138,7 @@
                                 <svg>
                                     <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#search') }}"></use>
                                 </svg></span></li>
-                        <li class="onhover-dropdown">
+                        {{-- <li class="onhover-dropdown">
                             <svg>
                                 <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#star') }}"></use>
                             </svg>
@@ -197,8 +198,8 @@
                                     <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#moon') }}"></use>
                                 </svg>
                             </div>
-                        </li>
-                        <li class="cart-nav onhover-dropdown">
+                        </li> --}}
+                        {{-- <li class="cart-nav onhover-dropdown">
                             <div class="cart-box">
                                 <svg>
                                     <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#stroke-ecommerce') }}"></use>
@@ -260,8 +261,8 @@
                                             href="checkout.html">Checkout</a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li class="onhover-dropdown">
+                        </li> --}}
+                        {{-- <li class="onhover-dropdown">
                             <div class="notification-box">
                                 <svg>
                                     <use href="{{ asset('cuba/assets/svg/icon-sprite.svg#notification') }}"></use>
@@ -312,29 +313,40 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
                         <li class="profile-nav onhover-dropdown pe-0 py-0">
                             <div class="d-flex profile-media"><img class="b-r-10"
                                     src="{{ asset('cuba/assets/images/dashboard/profile.png') }}" alt="">
-                                <div class="flex-grow-1"><span>Emay Walter</span>
-                                    <p class="mb-0">Admin <i class="middle fa-solid fa-angle-down"></i></p>
+                                <div class="flex-grow-1"><span>{{ Auth::user()->name }}</span>
+                                    @php
+                                        $roles = [
+                                            0 => 'Administrator',
+                                            1 => 'Sub Seksi',
+                                            2 => 'Seksi',
+                                            3 => 'Keuangan',
+                                            4 => 'Litbang',
+                                            5 => 'Sekretaris',
+                                        ];
+                                    @endphp
+                                    <p class="mb-0">{{ $roles[Auth::user()->role] ?? 'Tanpa Role' }}<i
+                                            class="middle fa-solid fa-angle-down"></i></p>
                                 </div>
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
-                                <li><a href="../template/sign-up.html"><i data-feather="user"></i><span>Account
-                                        </span></a></li>
-                                <li><a href="../template/mail-box.html"><i
+                                {{-- <li><a href=""><i data-feather="user"></i><span>Akun Anda
+                                        </span></a></li> --}}
+                                {{-- <li><a href="../template/mail-box.html"><i
                                             data-feather="mail"></i><span>Inbox</span></a></li>
                                 <li><a href="../template/task.html"><i
                                             data-feather="file-text"></i><span>Taskboard</span></a></li>
                                 <li><a href="../template/add-user.html"><i
-                                            data-feather="settings"></i><span>Settings</span></a></li>
+                                            data-feather="settings"></i><span>Settings</span></a></li> --}}
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                         @csrf
                                         <button type="submit"
                                             style="background: none; border: none; padding: 0; cursor: pointer;">
-                                            <i data-feather="log-in"></i> <span>Log out</span>
+                                            <i data-feather="log-in"></i> <span>LOG OUT</span>
                                         </button>
                                     </form>
                                 </li>

@@ -3,43 +3,86 @@
 namespace App\Http\Controllers;
 
 use App\Models\Monev;
+use App\Models\Periode_renstra;
+use App\Models\Periode_tahun;
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SeksiController extends Controller
 {
     public function index()
     {
-        $countProgram = Program::count();
-
-        $data = Program::selectRaw('status_usulan, COUNT(*) as total')
+        $dataProgram = Program::selectRaw('status_usulan, COUNT(*) as total')
+            ->where('seksi_id', Auth::user()->seksi_id)           
             ->groupBy('status_usulan')
             ->get();
-        return view('seksi.dashboard', compact('countProgram', 'data'));
+
+
+        $dataMonev = Program::selectRaw('status_monev, COUNT(*) as total')
+            ->groupBy('status_monev')
+            ->where('seksi_id', Auth::user()->seksi_id)            
+            ->get();
+
+        return view('seksi.dashboard', compact('dataProgram', 'dataMonev'));
     }
 
     public function verifikasi_index()
     {
+        //ambil periode renstra dan tahun aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
 
-        $listProgram = Program::where('status_usulan', '1')->get();
+        $listProgram = Program::where('status_usulan', '1')
+            ->where('seksi_id', Auth::user()->seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
+
         return view('seksi.verifikasi', compact('listProgram'));
     }
 
     public function verifikasi_prasidang_index()
     {
-        $listProgram = Program::where('status_usulan', '2')->get();
+        //ambil periode renstra dan tahun aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
+
+
+        $listProgram = Program::where('status_usulan', '2')
+            ->where('seksi_id', Auth::user()->seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
         return view('seksi.verifikasi_prasidang', compact('listProgram'));
     }
     public function verifikasi_ditolak_index()
     {
+         //ambil periode renstra dan tahun aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
 
-        $listProgram = Program::where('status_usulan', '4')->get();
+
+        $listProgram = Program::where('status_usulan', '4')
+            ->where('seksi_id', Auth::user()->seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
+
         return view('seksi.verifikasi_ditolak', compact('listProgram'));
     }
     public function verifikasi_disetujui_index()
     {
 
-        $listProgram = Program::where('status_usulan', '3')->get();
+        //ambil periode renstra dan tahun aktif
+        $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
+        $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
+
+        $listProgram = Program::where('status_usulan', '3')
+            ->where('seksi_id', Auth::user()->seksi_id)
+            ->where('tahun', $tahunAktif)
+            ->where('tahun_renstra', $periodeAktif)
+            ->get();
         return view('seksi.verifikasi_disetujui', compact('listProgram'));
     }
 

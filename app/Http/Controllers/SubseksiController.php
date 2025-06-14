@@ -18,7 +18,7 @@ class SubseksiController extends Controller
 {
     public function index()
     {
-        
+
         $dataProgram = Program::selectRaw('status_usulan, COUNT(*) as total')
             ->where('seksi_id', Auth::user()->seksi_id)
             ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
@@ -62,7 +62,7 @@ class SubseksiController extends Controller
         $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
 
         $listProgram = Program::where('status_usulan', '2')
-         ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
+            ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
             ->where('tahun', $tahunAktif)
             ->where('tahun_renstra', $periodeAktif)
             ->get();
@@ -75,7 +75,7 @@ class SubseksiController extends Controller
         $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
         $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
 
-        $listProgram = Program::where('status_usulan', '3')       
+        $listProgram = Program::where('status_usulan', '3')
             ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
             ->where('tahun', $tahunAktif)
             ->where('tahun_renstra', $periodeAktif)
@@ -88,7 +88,7 @@ class SubseksiController extends Controller
         //ambil periode renstra aktif
         $periodeAktif = Periode_renstra::where('status', 1)->value('nama_periode');
         $tahunAktif = Periode_tahun::where('status', 1)->value('nama_tahun');
-        
+
         $listProgram = Program::where('status_usulan', '4')
             ->where('sub_seksi_id', Auth::user()->sub_seksi_id)
             ->where('tahun', $tahunAktif)
@@ -280,6 +280,41 @@ class SubseksiController extends Controller
     public function profile_index()
     {
         return view('subseksi.profile_index');
+    }
+
+    public function profile_update(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'no_hp' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string',
+            'jabatan' => 'nullable|string',
+            'foto' => 'nullable|image|max:2048', // maks 2MB
+            'password' => 'nullable|string|min:6',
+        ]);
+
+        // Upload Foto
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto')->store('user_foto', 'public');
+            $user->foto = $foto;
+        }
+
+        // Update data umum
+        $user->email = $validated['email'];
+        $user->no_hp = $validated['no_hp'] ?? $user->no_hp;
+        $user->alamat = $validated['alamat'] ?? $user->alamat;
+        $user->jabatan = $validated['jabatan'] ?? $user->jabatan;
+
+        // Update password jika diisi
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 
     // PRINT PDF

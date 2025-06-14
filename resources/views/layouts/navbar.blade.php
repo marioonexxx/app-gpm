@@ -315,32 +315,29 @@
                             </div>
                         </li> --}}
                         <li class="profile-nav onhover-dropdown pe-0 py-0">
-                            <div class="d-flex profile-media"><img class="b-r-10"
-                                    src="{{ asset('cuba/assets/images/dashboard/profile.png') }}" alt="">
-                                <div class="flex-grow-1"><span>{{ Auth::user()->name }}</span>
-                                    @php
-                                        $roles = [
-                                            0 => 'Administrator',
-                                            1 => 'Sub Seksi',
-                                            2 => 'Seksi',
-                                            3 => 'Keuangan',
-                                            4 => 'Litbang',
-                                            5 => 'Sekretaris',
-                                        ];
-                                    @endphp
-                                    <p class="mb-0">{{ $roles[Auth::user()->role] ?? 'Tanpa Role' }}<i
-                                            class="middle fa-solid fa-angle-down"></i></p>
-                                </div>
+                            <div class="d-flex profile-media">
+                                <img class="b-r-10"
+                                    src="{{ Auth::user()->foto ? asset('storage/' . Auth::user()->foto) : asset('cuba/assets/images/user/7.jpg') }}"
+                                    alt="" style="width: 35px; height: 35px; object-fit: cover;">
+                                    <div class="flex-grow-1"><span>{{ Auth::user()->name }}</span>
+                                        @php
+                                            $roles = [
+                                                0 => 'Administrator',
+                                                1 => 'Seksi',
+                                                2 => 'Sub Seksi',
+                                                3 => 'Keuangan',
+                                                4 => 'Litbang',
+                                                5 => 'Sekretaris',
+                                            ];
+                                        @endphp
+                                        <p class="mb-0">{{ $roles[Auth::user()->role] ?? 'Tanpa Role' }}<i
+                                                class="middle fa-solid fa-angle-down"></i></p>
+
+                                                
+                                    </div>
                             </div>
                             <ul class="profile-dropdown onhover-show-div">
-                                {{-- <li><a href=""><i data-feather="user"></i><span>Akun Anda
-                                        </span></a></li> --}}
-                                {{-- <li><a href="../template/mail-box.html"><i
-                                            data-feather="mail"></i><span>Inbox</span></a></li>
-                                <li><a href="../template/task.html"><i
-                                            data-feather="file-text"></i><span>Taskboard</span></a></li>
-                                <li><a href="../template/add-user.html"><i
-                                            data-feather="settings"></i><span>Settings</span></a></li> --}}
+                                
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST" style="display: inline;">
                                         @csrf

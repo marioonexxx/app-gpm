@@ -8,6 +8,7 @@ use App\Models\Periode_tahun;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class SeksiController extends Controller
 {
@@ -119,8 +120,8 @@ class SeksiController extends Controller
 
     public function monev_verif_index()
     {
-        $listMonev = Monev::with('Program')
-            ->whereHas('Program', function ($query) {
+        $listMonev = Monev::with('program.seksi','program.sub_seksi')
+            ->whereHas('program', function ($query) {
                 $query->where('status_usulan', '3')
                 ->where('status_monev', '3');
             })
@@ -174,8 +175,45 @@ class SeksiController extends Controller
         return view('seksi.monev_revisi_index', compact('listMonev'));
     }
 
+    // manage profil akun
+
     public function profile_index()
     {
         return view('seksi.profile_index');
+    }
+
+    public function profile_update(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'no_hp' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string',
+            'jabatan' => 'nullable|string',
+            'foto' => 'nullable|image|max:2048', // maks 2MB
+            'password' => 'nullable|string|min:6',
+        ]);
+
+        // Upload Foto
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto')->store('user_foto', 'public');
+            $user->foto = $foto;
+        }
+
+        // Update data umum
+        $user->email = $validated['email'];
+        $user->no_hp = $validated['no_hp'] ?? $user->no_hp;
+        $user->alamat = $validated['alamat'] ?? $user->alamat;
+        $user->jabatan = $validated['jabatan'] ?? $user->jabatan;
+
+        // Update password jika diisi
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 }

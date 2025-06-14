@@ -1,5 +1,5 @@
 @extends('layouts.navbar')
-@section('title', 'Sistem Informasi Manajemen Gereja - Profil Pengguna')
+@section('title', 'Sistem Informasi Manajemen Gereja - Subseksi Profil Pengguna')
 
 @section('content')
     <div class="page-body">
@@ -15,7 +15,7 @@
                                         <use href="../assets/svg/icon-sprite.svg#stroke-home"></use>
                                     </svg></a></li>
                             <li class="breadcrumb-item">Pages</li>
-                            <li class="breadcrumb-item active">Pengguna</li>
+                            <li class="breadcrumb-item active">Sub Seksi - Pengguna</li>
                         </ol>
                     </div>
                 </div>
@@ -24,45 +24,136 @@
         <div class="container-fluid">
             <div class="edit-profile">
                 <div class="row">
-                    <div class="col-xl-4">
+                    <div class="col-xl-8">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">My Profile</h5>
+                                <h5 class="card-title">Profil Anda</h5>
                                 <div class="card-options"><a class="card-options-collapse" href="#"
                                         data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a
                                         class="card-options-remove" href="#" data-bs-toggle="card-remove"><i
                                             class="fe fe-x"></i></a></div>
                             </div>
                             <div class="card-body">
-                                <form class="custom-input">
-                                    <div class="row mb-2">
+                                <form class="custom-input" method="POST" action="{{ route('subseksi.profile_update') }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+
+                                    <div class="row custom-input">
                                         <div class="profile-title">
-                                            <div class="d-flex"> <img class="img-70 rounded-circle" alt=""
-                                                    src="../assets/images/user/7.jpg">
+                                            <div class="d-flex flex-column align-items-center text-center mb-4">
+                                                <label for="foto" style="margin: 0;">
+                                                    <img id="preview-image" class="rounded-circle"
+                                                        src="{{ Auth::user()->foto ? asset('storage/' . Auth::user()->foto) : asset('cuba/assets/images/user/7.jpg') }}"
+                                                        alt="Foto Profil"
+                                                        style="cursor: pointer; width: 120px; height: 120px; object-fit: cover;">
+                                                </label>
+                                                <input type="file" name="foto" id="foto" style="display: none;"
+                                                    accept="image/*" onchange="previewFoto(this)">
+
                                                 <div class="flex-grow-1">
-                                                    <h5 class="mb-1">WILLIAM C. JENNINGS</h5>
-                                                    <p>DESIGNER</p>
+                                                    <h5 class="mb-1">{{ Auth::user()->name }}</h5>
+                                                    <p>{{ Auth::user()->jabatan }}</p>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-xxl-6 box-col-12">
+                                            <div class="mb-3"><label class="form-label">Email Aktif</label><input
+                                                    class="form-control" type="email" name="email"
+                                                    placeholder="your-email@domain.com" value="{{ Auth::user()->email }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 box-col-12">
+                                            <div class="mb-3"><label class="form-label">Nomor Handphone
+                                                    Aktif</label><input class="form-control" type="text" name="no_hp"
+                                                    placeholder="0811XXXXXXXX" value="{{ Auth::user()->no_hp }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-xxl-6 box-col-12">
+                                            <div class="mb-3"><label class="form-label">Alamat</label>
+                                                <textarea class="form-control" name="alamat" rows="4" placeholder="Alamat tempat tinggal">{{ Auth::user()->alamat }}</textarea>
+                                            </div>
+                                        </div>
+                                        @php
+                                            $roles = [
+                                                0 => ['label' => 'Administrator', 'class' => 'badge bg-primary'],
+                                                1 => ['label' => 'Seksi', 'class' => 'badge bg-primary'],
+                                                2 => ['label' => 'Sub Seksi', 'class' => 'badge bg-primary'],
+                                                3 => ['label' => 'Bendahara / Keuangan', 'class' => 'badge bg-primary'],
+                                                4 => ['label' => 'Litbang', 'class' => 'badge bg-primary'],
+                                                5 => ['label' => 'Sekretaris', 'class' => 'badge bg-primary'],
+                                            ];
+
+                                            $userRole = Auth::user()->role ?? null;
+                                        @endphp
+
+                                        <div class="col-xxl-6 box-col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Role</label><br>
+                                                @if (!is_null($userRole))
+                                                    <span class="{{ $roles[$userRole]['class'] ?? 'badge bg-light' }}">
+                                                        {{ $roles[$userRole]['label'] ?? 'Tidak Diketahui' }}
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-light">Tidak Ada Data Role</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xxl-6 box-col-12">
+                                            <div class="mb-3"><label class="form-label">Jabatan</label><input
+                                                    class="form-control" name="jabatan" type="text" placeholder="Jabatan"
+                                                    value="{{ Auth::user()->jabatan }}">
+                                            </div>
+                                        </div>                                       
+
+                                        @php
+                                            $user = Auth::user();
+                                        @endphp
+
+                                        @if ($user->seksi)
+                                            <div class="col-xxl-6 box-col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Seksi</label>
+                                                    <input class="form-control" type="text"
+                                                        value="{{ $user->seksi->nama_seksi }}" readonly>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        @if ($user->sub_seksi)
+                                            <div class="col-xxl-6 box-col-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Sub Seksi</label>
+                                                    <input class="form-control" type="text"
+                                                        value="{{ $user->sub_seksi->nama_sub_seksi }}" readonly>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        <div class="col-xxl-6 box-col-12">
+                                            <div class="mb-3"><label class="form-label">Password</label><input
+                                                    class="form-control" name="password" type="password"
+                                                    placeholder="**********">
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="mb-3">
-                                        <h6 class="form-label">Bio</h6>
-                                        <textarea class="form-control" rows="5" placeholder="On the other hand, we denounce with righteous indignation"></textarea>
+
+
+
+                                    <div class="form-footer">
+                                        <button class="btn btn-primary btn-block">Save</button>
                                     </div>
-                                    <div class="mb-3"><label class="form-label">Email Address</label><input
-                                            class="form-control" type="email" placeholder="your-email@domain.com"></div>
-                                    <div class="mb-3"><label class="form-label">Password</label><input
-                                            class="form-control" type="password" value="password"></div>
-                                    <div class="mb-3"><label class="form-label">Website</label><input class="form-control"
-                                            type="url" placeholder="https://themeforest.net/user/pixelstrap/portfolio">
-                                    </div>
-                                    <div class="form-footer"><button class="btn btn-primary btn-block">Save</button></div>
+
                                 </form>
                             </div>
+
                         </div>
                     </div>
-                    <div class="col-xl-8">
+                </div>
+                {{-- <div class="col-xl-8">
                         <form class="card">
                             <div class="card-header">
                                 <h5 class="card-title">Edit Profile</h5>
@@ -90,8 +181,8 @@
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="mb-3"><label class="form-label" for="customFirstName">First
-                                                Name</label><input class="form-control" id="customFirstName"
-                                                type="text" placeholder="Company"></div>
+                                                Name</label><input class="form-control" id="customFirstName" type="text"
+                                                placeholder="Company"></div>
                                     </div>
                                     <div class="col-sm-6 col-md-6">
                                         <div class="mb-3"><label class="form-label" for="customLastName">Last
@@ -135,10 +226,40 @@
                             <div class="card-footer text-end"><button class="btn btn-primary" type="submit">Update
                                     Profile</button></div>
                         </form>
-                    </div>
-                </div>
+                    </div> --}}
             </div>
-        </div><!-- Container-fluid Ends-->
+        </div>
+    </div><!-- Container-fluid Ends-->
     </div>
 
 @endsection
+
+<script>
+    function previewFoto(input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('preview-image').src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
+
+@if (session('success'))
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                buttonsStyling: false, // penting agar customClass aktif
+                customClass: {
+                    confirmButton: 'btn btn-success'
+                }
+            });
+        });
+    </script>
+@endif

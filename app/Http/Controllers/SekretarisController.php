@@ -11,7 +11,9 @@ use App\Models\Seksi;
 use App\Models\Sub_seksi;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SekretarisController extends Controller
 {
@@ -191,7 +193,7 @@ class SekretarisController extends Controller
         return back()->with('success', 'Data berhasil ditambahkan.');
     }
 
-    public function program_stretegis_update(Request $request, $id) 
+    public function program_stretegis_update(Request $request, $id)
     {
 
         // dd($request->all());
@@ -209,7 +211,7 @@ class SekretarisController extends Controller
         return back()->with('success', 'Data berhasil diupdate.');
     }
 
-    public function program_strategis_destroy($id) 
+    public function program_strategis_destroy($id)
     {
         $program_strategis = Program_strategis::findOrFail($id);
         $program_strategis->delete();
@@ -328,8 +330,7 @@ class SekretarisController extends Controller
             'sub_seksi_id' => $request->role == 2 ? $request->sub_seksi_id : null,
         ];
 
-        if ($request->filled('password')) 
-        {           
+        if ($request->filled('password')) {
             $dataUpdate['password'] = $request->password;
         }
 
@@ -344,5 +345,40 @@ class SekretarisController extends Controller
         $user->delete();
 
         return redirect()->back()->with('success', 'Data berhasil dihapus.');
+    }
+
+
+    public function profile_update(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'no_hp' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string',
+            'jabatan' => 'nullable|string',
+            'foto' => 'nullable|image|max:2048',
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        // Upload foto jika ada
+        if ($request->hasFile('foto')) {
+            $foto = $request->file('foto')->store('user_foto', 'public');
+            $user->foto = $foto;
+        }
+
+        $user->email = $validated['email'];
+        $user->no_hp = $validated['no_hp'] ?? $user->no_hp;
+        $user->alamat = $validated['alamat'] ?? $user->alamat;
+        $user->jabatan = $validated['jabatan'] ?? $user->jabatan;
+
+        // Jika password tidak kosong, maka update password
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 }

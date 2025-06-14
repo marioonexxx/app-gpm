@@ -17,12 +17,14 @@ return new class extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
+            $table->string('foto')->nullable();
             $table->string('email')->unique();
             $table->string('no_hp')->unique();
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
             $table->string('role')
                 ->comment('0. Administrator | 1. Seksi| 2. Sub Seksi | 3. Bendahara/Keuangan | 4. Litbang | 5. Sekretaris/Admin');
+            $table->string('jabatan')->nullable();
             $table->unsignedBigInteger('seksi_id')->nullable();
             $table->unsignedBigInteger('sub_seksi_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();

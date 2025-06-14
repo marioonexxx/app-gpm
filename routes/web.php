@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\KeuanganController;
+use App\Http\Controllers\LitbangController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SekretarisController;
 use App\Http\Controllers\SeksiController;
@@ -39,6 +42,7 @@ Route::middleware('auth','verified','Sekretaris')->group(function(){
     
     //profile
     Route::get('/sekretaris/profile',[SekretarisController::class, 'profile_index'])->name('sekretaris.profile_index');
+    Route::put('/sekretaris/profile',[SekretarisController::class, 'profile_update'])->name('sekretaris.profile_update');
 
     //renstra
     Route::get('/sekretaris/periode_renstra',[SekretarisController::class, 'pengaturan_periode_renstra'])->name('sekretaris.pengaturan_periode_renstra');
@@ -73,6 +77,7 @@ Route::middleware('auth','verified','Sekretaris')->group(function(){
     Route::delete('/sekretaris/manajemen_akun_delete/{id}',[SekretarisController::class, 'manajemen_akun_destory'])->name('sekretaris.manajemen_akun_delete');
 
 
+    
    
 
 
@@ -104,6 +109,7 @@ Route::middleware('auth','verified','Subseksi')->group(function(){
     //PROFILE
 
     Route::get('/subseksi/profile',[SubseksiController::class, 'profile_index'])->name('subseksi.profile_index');
+    Route::put('/subseksi/profile',[SubseksiController::class, 'profile_update'])->name('subseksi.profile_update');
 
 
     //PRINT
@@ -131,8 +137,43 @@ Route::middleware('auth','verified','Seksi')->group(function(){
     Route::get('/seksi/monev_revisi_index',[SeksiController::class, 'monev_revisi_index'])->name('seksi.monev_revisi_index');
     //PROFILE
     Route::get('/seksi/profile',[SeksiController::class, 'profile_index'])->name('seksi.profile_index');
+    Route::put('/seksi/profile',[SeksiController::class, 'profile_update'])->name('seksi.profile_update');  
    
     
+
+});
+
+
+
+// ROLE LITBANG KLASIS
+
+Route::middleware('auth','verified', 'Litbang')->group(function(){
+    Route::get('/litbang/dashboard', [LitbangController::class, 'index'])->name('litbang.dashboard');
+
+    Route::get('/litbang/profile',[LitbangController::class, 'profile_index'])->name('litbang.profile_index');
+    Route::put('/litbang/profile',[LitbangController::class, 'profile_update'])->name('litbang.profile_update'); 
+});
+
+
+// ROLE KEUANGAN/BENDAHARA
+
+Route::middleware('auth','verified','Keuangan')->group(function(){
+    Route::get('/keuangan/dashboard',[KeuanganController::class, 'index'])->name('keuangan.dashboard');
+    Route::get('/keuangan/profile',[KeuanganController::class, 'profile_index'])->name('keuangan.profile_index');
+    Route::put('/keuangan/profile',[KeuanganController::class, 'profile_update'])->name('keuangan.profile_update'); 
+
+});
+
+
+// ROLE ADMINISTRATOR
+
+Route::middleware('auth','verified','Administrator')->group(function(){
+
+    Route::get('/dashboard',[AdministratorController::class, 'index'])->name('dashboard');
+
+    Route::get('/administrator/pengaturan_akun',[AdministratorController::class, 'pengaturan_akun'])->name('administrator.pengaturan_akun');
+
+
 
 });
 

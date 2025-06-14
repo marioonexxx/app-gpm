@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         
         if($loggedInUserRole == 0)
         {
-            return redirect()->intended(route('administrator.dashboard', absolute:false));
+            return redirect()->intended(route('dashboard', absolute:false));
         }
         else if($loggedInUserRole == 1)
         {
@@ -72,6 +72,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

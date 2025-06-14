@@ -45,8 +45,10 @@
                                 <table id="programTable" class="table table-bordered mt-8">
                                     <thead>
                                         <tr>
-                                            <th>Program Strategis</th>
+                                            {{-- <th>Program Strategis</th> --}}
                                             <th>Nama Kegiatan</th>
+                                            <th>Seksi</th>
+                                            <th>Sub Seksi</th>
                                             <th>Kelompok Sasaran</th>
                                             <th>Kesuaian Waktu</th>
                                             <th>Realisasi Anggaran</th>
@@ -64,8 +66,10 @@
                                     <tbody>
                                         @foreach ($listMonev as $item)
                                             <tr>
-                                                <td>{{ $item->program->program_strategis ?? '-' }}</td>
+                                                {{-- <td>{{ $item->program->program_strategis ?? '-' }}</td> --}}
                                                 <td>{{ $item->program->nama_kegiatan ?? '-' }}</td>
+                                                <td>{{ $item->program->seksi->nama_seksi ?? '-' }}</td>
+                                                <td>{{ $item->program->sub_seksi->nama_sub_seksi ?? '-' }}</td>
                                                 <td>{{ $item->program->kelompok_sasaran ?? '-' }}</td>
                                                 <td>{{ $item->kesesuaian_waktu }}</td>
                                                 <td>{{ $item->realisasi_anggaran }}</td>

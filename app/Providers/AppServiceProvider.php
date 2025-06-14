@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
 
 
 
-        View::composer(['layouts.partial.sidebar', 'sekretaris.dashboard', 'subseksi.dashboard', 'seksi.dashboard'], function ($view) {
+        View::composer(['layouts.partial.sidebar','administrator.dashboard', 'sekretaris.dashboard', 'subseksi.dashboard', 'seksi.dashboard', 'litbang.dashboard','keuangan.dashboard'], function ($view) {
 
             // PROGRAM on SEKRETARIS, KEUANGAN, LITBANG
             $ProgramCount = Program::count();

@@ -25,7 +25,7 @@ class Sekretaris
         // role administrator
         if($userRole == 0)
         {
-            return redirect()->route('administrator.dashboard');
+            return redirect()->route('dashboard');
         }
         // role seksi
         if($userRole == 1)
